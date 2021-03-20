@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar class="new-background-color">
+    <ion-title class="rounded"
+      style="font-size: 1rem; color: white; background: rgb(44, 72, 167); font-weight: bold; box-shadow: rgb(255, 255, 255);">
+      Ticket
+      {{incident.incident_number}}
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="closeIncident()">
+      <ion-icon style="color: white;" src="../../assets/icon/lock-black-18dp.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Ticket esterno</ion-label>
+      <ion-input readonly value="{{incident.incident_number_internal}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Cliente</ion-label>
+      <ion-input readonly value="{{incident.client}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Indirizzo</ion-label>
+      <ion-input readonly value="{{incident.address}}"></ion-input>
+      <ion-icon style="color: rgb(42, 163, 238); margin-left: -15px;" size="large" slot="end" ios="navigate"
+        md="navigate">
+      </ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Comune</ion-label>
+      <ion-input readonly value="{{incident.common}}"></ion-input>
+    </ion-item>
+    <hr>
+    <!-- <ion-item>
+      <ion-label position="floating">Destinazione</ion-label>
+      <ion-input readonly value="{{incident.destination}}"></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Nome contatto</ion-label>
+      <ion-input readonly value="{{incident.contact_name}}"></ion-input>
+    </ion-item>
+    <!-- <ion-item col="6">
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Telefono</ion-label>
+      <ion-input readonly value="{{incident.phone_1}}" (click)="callCellular(incident.phone_1)"></ion-input>
+      <ion-icon slot="start" ios="call" md="md-call"></ion-icon>
+    </ion-item>
+    <ion-item col="6">
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Cellulare</ion-label>
+      <ion-input readonly value="{{incident.phone_2}}" (click)="callCellular(incident.phone_2)"></ion-input>
+      <ion-icon slot="start" ios="call" md="md-call"></ion-icon>
+    </ion-item> -->
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" class="ion-no-padding">
+          <ion-item>
+            <!-- <ion-label style="color: rgb(42, 163, 238); margin-left: 0px;" position="floating">Telefono</ion-label> -->
+            <ion-input readonly value="{{incident.phone_1}}" (click)="callCellular(incident.phone_1)"></ion-input>
+            <ion-icon style="color: rgb(42, 163, 238); margin-left: -15px;" size="small" slot="start" ios="call"
+              md="call">
+            </ion-icon>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6" class="ion-no-padding">
+          <ion-item>
+            <!-- <ion-label style="color: rgb(42, 163, 238);" position="floating">Cellulare
+            </ion-label> -->
+            <ion-input readonly value="{{incident.phone_2}}" (click)="callCellular(incident.phone_2)"></ion-input>
+            <ion-icon style="color: rgb(42, 163, 238); margin-left: -20px;" size="small" slot="start"
+              ios="phone-portrait-outline" md="phone-portrait-outline"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <hr>
+    <!-- <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Data richiesta</ion-label>
+      <ion-input readonly value="Data : 21/01/2021 ore: {{incident.requested_time}}"></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Device</ion-label>
+      <ion-input readonly value="{{incident.device}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="color: rgb(42, 163, 238);" position="floating">Evento</ion-label>
+      <ion-input readonly value="{{incident.event_type}}"></ion-input>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6">
+          <ion-label style="color: rgb(42, 163, 238);" position="floating">Data pianifica</ion-label>
+          <ion-input readonly value="{{incident.appointment || '19/09/2021'}}"></ion-input>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label style="color: rgb(42, 163, 238);" position="floating">Data ticket</ion-label>
+          <ion-input readonly value="19/09/2021"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <h3 style="color: rgb(42, 163, 238);">Sintomo</h3>
+    </ion-item>
+    <ion-item>
+      <ion-textarea readonly rows="12" cols="20" value="{{incident.symptom}}"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <h3 style="color: rgb(42, 163, 238);">Note</h3>
+    </ion-item>
+    <ion-item>
+      <ion-textarea readonly rows="12" cols="20" value="{{incident.note}}"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>

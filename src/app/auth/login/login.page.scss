@@ -1,0 +1,14 @@
+// ion-item {
+//   background: transparent;
+//   --color: white;
+// }
+ion-button {
+  --background: rgb(255, 202, 45) !important;
+}
+
+.rounded {
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}

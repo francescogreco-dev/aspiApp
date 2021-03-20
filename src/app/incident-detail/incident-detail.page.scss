@@ -1,0 +1,32 @@
+// ion-content{
+
+//     --ion-background-color:#e5e1f5a4;
+// }
+ion-toolbar {
+  box-shadow: 5px 5px #88888800;
+}
+.rounded {
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+ion-toolbar,
+ion-header {
+  --min-height: 40px;
+}
+
+hr {
+  // border: 2px solid red !important;
+  height: 5px !important;
+  // width: 500px !important;
+  background: rgb(44, 72, 167) !important;
+  display: block !important;
+  font-size: 2em !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  margin-top: -0px;
+}
+
+.new-background-color {
+  --background: rgb(44, 72, 167);
+}

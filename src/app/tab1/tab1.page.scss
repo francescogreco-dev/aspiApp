@@ -1,0 +1,22 @@
+body {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+.red {
+  border-right: 10px solid #d15b5b;
+}
+.green {
+  border-right: 10px solid green;
+}
+
+ion-toolbar,
+ion-header {
+  --min-height: 40px;
+}
+
+.new-background-color {
+  --background: rgb(44, 72, 167);
+  --color: white;
+}

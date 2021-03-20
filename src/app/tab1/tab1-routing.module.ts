@@ -6,11 +6,17 @@ const routes: Routes = [
   {
     path: '',
     component: Tab1Page,
+
+
+  }, {
+    path: 'incident-detail',
+    loadChildren: '../incident-detail/incident-detail.module.ts#IncidentDetailPageModule'
   }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Tab1PageRoutingModule {}
+export class Tab1PageRoutingModule { }

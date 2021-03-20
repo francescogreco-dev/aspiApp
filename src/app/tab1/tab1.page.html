@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar class="new-background-color">
     <ion-title>
-      Tab 1
+      Assegnati
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,31 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large" style="font-size: 1rem;">Assegnati</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-card *ngFor="let incident of dati" [ngClass]="incident.id % 2 !=0 ? 'red' : 'green'">
+    <ion-item [color]=" incident.id % 2 !=0 ? 'primary' : 'primary'">
+      <ion-label style="text-align: left;"><b>Ticket: {{incident.incident_number}}</b></ion-label>
+      <ion-button style="font-weight: bold;" slot="end">
+        <ion-icon color="success" name="calendar-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-card-header class="ion-no-padding" translucent (click)="test(incident)">
+      <ion-card-content>
+        <b>Ticket esterno:</b> {{incident.incident_number_internal}}
+        <br>
+        <b>Device:</b> {{incident.device}}
+        <br>
+        <b>Cliente:</b> {{incident.client}}
+        <br>
+        <b>Contatto:</b> {{incident.contact_name}}
+        <br>
+        <b>Indirizzo:</b> {{incident.address}}
+        <br>
+        <b>Comune:</b> {{incident.common}}
+      </ion-card-content>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
