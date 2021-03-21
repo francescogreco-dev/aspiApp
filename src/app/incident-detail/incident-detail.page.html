@@ -109,13 +109,32 @@
       <h3 style="color: rgb(42, 163, 238);">Sintomo</h3>
     </ion-item>
     <ion-item>
-      <ion-textarea readonly rows="12" cols="20" value="{{incident.symptom}}"></ion-textarea>
+      <ion-textarea readonly rows="6" cols="20" value="{{incident.symptom}}"></ion-textarea>
     </ion-item>
     <ion-item>
-      <h3 style="color: rgb(42, 163, 238);">Note</h3>
+      <h3 style="color: rgb(42, 163, 238);">Nota apertura ticket</h3>
     </ion-item>
     <ion-item>
-      <ion-textarea readonly rows="12" cols="20" value="{{incident.note}}"></ion-textarea>
+      <ion-textarea readonly rows="6" cols="20" value="{{incident.note}}"></ion-textarea>
     </ion-item>
+    <ion-item>
+      <h3 style="color: rgb(42, 163, 238);">Note ticket</h3>
+    </ion-item>
+    <ion-card *ngFor="let nota of incident.incident_notes">
+      <ion-card-header>
+        <ion-card-title
+          style="background-color: lightgray; font-size: 1.2rem; padding-top: 5px; padding-bottom: 5px; text-align: center;">
+          Data:
+          {{nota.date_insert + ' ' +
+          nota.time_insert}}
+        </ion-card-title>
+        <ion-card-subtitle>Evento: {{nota.event_type}}</ion-card-subtitle>
+        <ion-card-subtitle>Stato: {{nota.status}}</ion-card-subtitle>
+        <ion-card-subtitle>Utente: {{nota.technical_name}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{nota.text}}
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 </ion-content>

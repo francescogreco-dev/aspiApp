@@ -16,23 +16,25 @@
   <ion-card *ngFor="let incident of dati" [ngClass]="incident.id % 2 !=0 ? 'red' : 'green'">
     <ion-item [color]=" incident.id % 2 !=0 ? 'primary' : 'primary'">
       <ion-label style="text-align: left;"><b>Ticket: {{incident.incident_number}}</b></ion-label>
-      <ion-button style="font-weight: bold;" slot="end">
-        <ion-icon color="success" name="calendar-outline"></ion-icon>
+      <ion-button color="light" style="font-weight: bold;" slot="end" (click)="plannedIncident()">
+        <ion-icon name="calendar-outline"></ion-icon>
       </ion-button>
     </ion-item>
     <ion-card-header class="ion-no-padding" translucent (click)="test(incident)">
-      <ion-card-content>
-        <b>Ticket esterno:</b> {{incident.incident_number_internal}}
+      <ion-card-content class="ion-no-padding" style="padding-left: 10px; padding-bottom: 10px; padding-top: 5px;">
+        Ticket esterno: <b>{{incident.incident_number_internal}}</b>
         <br>
-        <b>Device:</b> {{incident.device}}
+        Device: <b>{{incident.device}}</b>
         <br>
-        <b>Cliente:</b> {{incident.client}}
+        Cliente: <b>{{incident.client}}</b>
         <br>
-        <b>Contatto:</b> {{incident.contact_name}}
+        Contatto: <b>{{incident.contact_name}}</b>
         <br>
-        <b>Indirizzo:</b> {{incident.address}}
+        Indirizzo: <b>{{incident.address}}</b>
         <br>
-        <b>Comune:</b> {{incident.common}}
+        Comune: <b>{{incident.common}}</b>
+        <br>
+        Data pianifica: <b>{{incident.appointment || '19/09/2021'}}</b>
       </ion-card-content>
     </ion-card-header>
   </ion-card>

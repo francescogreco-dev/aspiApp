@@ -4,6 +4,7 @@ import { IncidentData } from './../class/incident-data';
 import { Component, OnInit } from '@angular/core';
 import { IncidentDetailPage } from '../incident-detail/incident-detail.page';
 import { LoadingService } from '../loading-service.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -12,7 +13,7 @@ import { LoadingService } from '../loading-service.service';
 })
 export class Tab1Page {
   public dati: IncidentData[];
-  constructor(private route: Router, private loadingW: LoadingService) {
+  constructor(private route: Router, private loadingW: LoadingService, private alertController: AlertController) {
     this.dati = IncidentData.getFakeDataArray();
   }
 
@@ -25,6 +26,28 @@ export class Tab1Page {
     let pass = JSON.stringify(incident)
     this.route.navigate(['incident-detail', { pass }]);
     this.loadingW.present();
+  }
+
+  async plannedIncident() {
+    const alert = await this.alertController.create({
+      header: 'Pianificazione intervento',
+      message: 'Si vuole davvero pracedere?',
+      buttons: [{
+        text: 'Annulla',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Annullato');
+        }
+      }, {
+        text: 'Procedi',
+        handler: () => {
+          console.log('Work in progress!');
+        }
+      }]
+    });
+
+    await alert.present();
   }
 
 }
