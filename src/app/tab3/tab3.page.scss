@@ -1,0 +1,24 @@
+.red {
+  border-right: 15px solid #d15b5b;
+}
+.green {
+  border-right: 15px solid green;
+}
+
+.orange {
+  border-right: 15px solid orange;
+}
+
+.gray {
+  border-right: 15px solid gray;
+}
+
+.new-background-color {
+  --background: rgb(44, 72, 167);
+  --color: white;
+}
+
+ion-toolbar,
+ion-header {
+  --min-height: 40px;
+}

@@ -5,10 +5,19 @@ body {
   user-select: text;
 }
 .red {
-  border-right: 10px solid #d15b5b;
+  border-right: 15px solid #d15b5b;
 }
 .green {
-  border-right: 10px solid green;
+  border-right: 15px solid green;
+}
+
+.orange {
+  border-right: 15px solid orange;
+}
+
+.custom-fab {
+  width: 60px !important;
+  height: 60px !important;
 }
 
 ion-toolbar,

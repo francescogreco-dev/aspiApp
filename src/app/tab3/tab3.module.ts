@@ -7,6 +7,7 @@ import { Tab3Page } from './tab3.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
   ],
+  providers: [SplashScreen],
   declarations: [Tab3Page]
 })
-export class Tab3PageModule {}
+export class Tab3PageModule { }
