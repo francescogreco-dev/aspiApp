@@ -6,6 +6,9 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+  }, {
+    path: 'incident-detail',
+    loadChildren: '../incident-detail/incident-detail.module.ts#IncidentDetailPageModule'
   }
 ];
 
@@ -13,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Tab2PageRoutingModule {}
+export class Tab2PageRoutingModule { }

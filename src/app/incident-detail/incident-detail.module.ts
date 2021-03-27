@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IncidentDetailPageRoutingModule } from './incident-detail-routing.module';
 
 import { IncidentDetailPage } from './incident-detail.page';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { IncidentDetailPage } from './incident-detail.page';
     IonicModule,
     IncidentDetailPageRoutingModule
   ],
-  declarations: [IncidentDetailPage]
+  declarations: [IncidentDetailPage], providers: [SplashScreen]
 })
 export class IncidentDetailPageModule { }

@@ -9,6 +9,14 @@ const routes: Routes = [
   {
     path: 'incident-detail',
     loadChildren: () => import('./incident-detail/incident-detail.module').then(m => m.IncidentDetailPageModule)
+  },
+  {
+    path: 'filters-modal',
+    loadChildren: () => import('./modals/filters-modal/filters-modal.module').then( m => m.FiltersModalPageModule)
+  },
+  {
+    path: 'incident-closure',
+    loadChildren: () => import('./modals/incident-closure/incident-closure.module').then( m => m.IncidentClosurePageModule)
   }
 ];
 @NgModule({

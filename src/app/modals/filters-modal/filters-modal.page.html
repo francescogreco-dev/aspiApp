@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filtro {{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-img src="../../../assets/image/logo.jpg" style="height: 300px; background-color: white;"></ion-img>
+  <ion-item>
+    <ion-label>Lista</ion-label>
+    <ion-select *ngIf="filter == 'planned_date'" interface="popover" [(ngModel)]="selected_value"
+      (ionChange)="Getselected(selected_value, 'planned_date')" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let item of planned_dates" value="{{item}}">{{item || '--'}}
+      </ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="filter == 'request_date'" interface="popover" [(ngModel)]="selected_value"
+      (ionChange)="Getselected(selected_value, 'request_date')" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let item of request_dates" value="{{item}}">{{item}}</ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="filter == 'province'" interface="popover" [(ngModel)]="selected_value"
+      (ionChange)="Getselected(selected_value, 'province')" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let item of provinces" value="{{item}}">{{item}}</ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="filter == 'client'" interface="popover" [(ngModel)]="selected_value"
+      (ionChange)="Getselected(selected_value, 'client')" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let item of clients" value="{{item}}">{{item}}</ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="filter == 'common'" interface="popover" [(ngModel)]="selected_value"
+      (ionChange)="Getselected(selected_value, 'common')" [ngModelOptions]="{standalone: true}">
+      <ion-select-option *ngFor="let item of commons" value="{{item}}">{{item}}</ion-select-option>
+    </ion-select>
+  </ion-item><br><br><br><br><br><br>
+  <section>
+    <ion-button (click)="closeModal()" expand="block">Cerca</ion-button>
+  </section>
+</ion-content>
