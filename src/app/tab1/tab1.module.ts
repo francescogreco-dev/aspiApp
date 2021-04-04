@@ -1,3 +1,4 @@
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { IncidentDetailPageRoutingModule } from './../incident-detail/incident-detail-routing.module';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
     IncidentDetailPageModule
   ],
   exports: [],
-  providers: [SplashScreen],
+  providers: [SplashScreen, DatePicker],
   declarations: [Tab1Page]
 })
 export class Tab1PageModule { }

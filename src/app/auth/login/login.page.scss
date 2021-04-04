@@ -2,7 +2,22 @@ ion-item {
   background: transparent;
 }
 ion-button {
-  --background: rgb(241, 153, 29) !important;
+  --background: rgb(28, 37, 204) !important;
+  color: white !important;
+}
+
+.item .item-input {
+  background-color: transparent;
+}
+
+ion-input {
+  background-color: white !important;
+  background: white !important;
+}
+
+ion-input {
+  --placeholder-color: rgb(44, 72, 167);
+  --placeholder-opacity: 1;
 }
 
 .rounded {
@@ -10,4 +25,9 @@ ion-button {
   -webkit-border-radius: 50px;
   border-radius: 20px;
   margin-bottom: 20px;
+}
+
+ion-item ion-label,
+ion-item ion-icon {
+  margin: 2px;
 }

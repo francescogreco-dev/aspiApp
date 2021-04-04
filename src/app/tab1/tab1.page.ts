@@ -1,12 +1,16 @@
+import { DataIncidentsService } from './../data-incidents.service';
+import { IncidentNote } from './../class/incident-note';
 import { EventsService } from './../events.service';
 import { Router } from '@angular/router';
 import { IncidentData } from './../class/incident-data';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { LoadingService } from '../loading-service.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonReorderGroup } from '@ionic/angular';
+import { ItemReorderEventDetail } from '@ionic/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ModalController } from '@ionic/angular';
 import { FiltersModalPage } from '../modals/filters-modal/filters-modal.page';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
 
 @Component({
@@ -15,8 +19,13 @@ import * as moment from 'moment';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  @ViewChild(IonReorderGroup) reorderGroup: IonReorderGroup;
+
   public dati: IncidentData[];
   public _dati: IncidentData[];
+  public dataNoPlanned: IncidentData[];
+  public dataPlannedNoToday: IncidentData[];
+  public dataPlannedToday: IncidentData[];
   public clients = [];
   public commons = [];
   public planned_dates = [];
@@ -28,7 +37,7 @@ export class Tab1Page {
   public options = {
     year: "numeric",
     month: "2-digit",
-    day: "numeric"
+    day: "2-digit"
   };
   public now: string;
   constructor(
@@ -38,21 +47,73 @@ export class Tab1Page {
     private events: EventsService,
     private splashScreen: SplashScreen,
     public modalController: ModalController,
+    private datePicker: DatePicker,
+    private dataService: DataIncidentsService
   ) {
-
+    // this.dataNoPlanned = this.dataService.getDataNoPlanned()
+    // this.dataPlannedNoToday = this.dataService.getDataPlannedNoToday();
+    // this.dataPlannedToday = this.dataService.getDataPlannedToday();
+    let app: IncidentData[] = [];
+    let tmp = localStorage.getItem('dati');
+    if (tmp && tmp != '' && tmp != '[]') {
+      let dataTemp = JSON.parse(tmp);
+      dataTemp.forEach((ele) => {
+        let u = new IncidentData(ele);
+        console.log('sono qui')
+        app.push(u);
+      })
+    } else {
+      app = this.dataService.getDataAll();
+    }
+    this.dati = app;
   }
 
   OnInit() {
 
   }
 
+  doReorder(ev: CustomEvent<ItemReorderEventDetail>) {
+    // The `from` and `to` properties contain the index of the item
+    // when the drag started and ended, respectively
+    console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+    //console.log('prima di completare', this.dati);
+    // Finish the reorder and position the item in the DOM based on
+    // where the gesture ended. This method can also be called directly
+    // by the reorder group
+    this.dati = ev.detail.complete(this.dati);
+    localStorage.setItem('dati', JSON.stringify(this.dati));
+  }
+
+  toggleReorderGroup() {
+    this.reorderGroup.disabled = !this.reorderGroup.disabled;
+  }
+
   ionViewWillEnter() {
-    this.dati = IncidentData.getFakeDataArray2();
+    //this.buildData()
+    this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
+    this.getCount();
+    this.buildFilters();
+  }
+
+  buildData() {
+    let tmp = localStorage.getItem('dati');
+    let dataTemp = [];
+    let appData: IncidentData[] = []
+    if (tmp) {
+      dataTemp = JSON.parse(tmp);
+      dataTemp.forEach((ele) => {
+        let u = new IncidentData(ele);
+        appData.push(u);
+      })
+      this.dati = appData;
+    } else {
+      this.dati = IncidentData.getFakeDataArray2();
+      localStorage.setItem('dati', JSON.stringify(this.dati));
+    }
     this._dati = this.dati;
     this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
     this.getCount();
     this.buildFilters();
-    // this.events.publishData({ countAssegnati: this.countAssegnati, countPianificati: this.countPianificati, countChiusi: this.countChiusi });
   }
 
   buildFilters() {
@@ -85,30 +146,31 @@ export class Tab1Page {
     this.planned_dates = planned_dates;
     this.provinces = provinces;
     this.request_dates = request_dates;
-    console.log(this.clients, this.commons, this.planned_dates, this.provinces, this.request_dates)
+    //console.log(this.clients, this.commons, this.planned_dates, this.provinces, this.request_dates)
   }
 
   getCount() {
-    let countPianificati = 0
-    let countChiusi = 0;
-    let countAssegnati = 0;
-    this.dati.forEach(function (data) {
-      if (data.is_planned == true && data.getClosed() == false) {
-        let current = new Date();
-        let plan = moment(data.planned_date, "DD-MM-YYYY").toDate();
-        if (current.getDate() == plan.getDate()) {
-          countPianificati++;
-        }
-      }
-      if (data.getClosed() == true) {
-        countChiusi += 1;
-      }
-      countAssegnati += 1;
-    });
-    this.countAssegnati = countAssegnati - countChiusi;
-    this.countChiusi = countChiusi;
-    this.countPianificati = countPianificati;
-    this.events.publishData({ countAssegnati: this.countAssegnati, countPianificati: this.countPianificati, countChiusi: this.countChiusi });
+    let counts = this.dataService.getCounts();
+    // let countPianificati = 0
+    // let countChiusi = 0;
+    // let countAssegnati = 0;
+    // this.dati.forEach(function (data) {
+    //   if (data.is_planned == true && data.getClosed() == false) {
+    //     let current = new Date();
+    //     let plan = moment(data.planned_date, "DD-MM-YYYY").toDate();
+    //     if (current.getDate() == plan.getDate()) {
+    //       countPianificati++;
+    //     }
+    //   }
+    //   if (data.getClosed() == true) {
+    //     countChiusi += 1;
+    //   }
+    //   countAssegnati += 1;
+    // });
+    // this.countAssegnati = countAssegnati - countChiusi;
+    // this.countChiusi = countChiusi;
+    // this.countPianificati = countPianificati;
+    this.events.publishData({ countAssegnati: counts.countAssegnati, countPianificati: counts.countPianificati, countChiusi: counts.countChiusi });
   }
 
   test(incident: IncidentData) {
@@ -117,7 +179,7 @@ export class Tab1Page {
     this.splashScreen.show();
   }
 
-  async plannedIncident() {
+  async plannedIncident(incident: IncidentData) {
     const alert = await this.alertController.create({
       header: 'Pianificazione intervento',
       message: 'Si vuole davvero pracedere?',
@@ -126,17 +188,62 @@ export class Tab1Page {
         role: 'cancel',
         cssClass: 'secondary',
         handler: (blah) => {
-          console.log('Annullato');
+          //console.log('Annullato');
         }
       }, {
         text: 'Procedi',
         handler: () => {
-          console.log('Work in progress!');
+          this.showDateCalendar(incident);
         }
       }]
     });
 
     await alert.present();
+  }
+
+  showDateCalendar(incident: IncidentData) {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+    }).then(
+      date => {
+        incident.planned_date = moment(date).format("DD/MM/YYYY").toString();
+        incident.is_planned = true;
+        this.saveIncident(incident);
+      },
+      err => console.log('Si è verificato il seguente errore: ', err)
+    );
+  }
+
+  saveIncident(incident: IncidentData) {
+    this.dataService.save(incident);
+    this.dati = this.dataService.getDataAll();
+    this.getCount();
+    //this.rebuildData(incident)
+  }
+
+  rebuildData(incident: IncidentData) {
+    let tmp: IncidentData[] = [];
+    let variableSet = '';
+    let variable;
+    if (incident.planned_date == this.now) {
+      variableSet = 'dataPlannedToday'
+      variable = this.dataPlannedToday;
+    } else {
+      variableSet = 'dataPlannedNoToday'
+      variable = this.dataPlannedNoToday;
+    }
+    variable.forEach(incidentEle => {
+      if (incidentEle.id_incident == incident.id_incident) {
+        tmp.push(incident);
+      } else {
+        tmp.push(incidentEle);
+      }
+      localStorage.setItem(variableSet, JSON.stringify(tmp));
+      this.dati = this.dataService.getDataAll();
+      this.getCount();
+    })
   }
 
   async showFilter(type) {
@@ -168,7 +275,7 @@ export class Tab1Page {
     const dati: IncidentData[] = [];
     this._dati.forEach((incident) => {
       if (incident[field] == value) {
-        console.log(incident);
+        //console.log(incident);
         dati.push(incident);
       }
     })
@@ -184,6 +291,15 @@ export class Tab1Page {
       }]
     });
     await alert.present();
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation', event);
+    this.buildData()
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }

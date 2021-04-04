@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IncidentClosurePageRoutingModule } from './incident-closure-routing.module';
 
 import { IncidentClosurePage } from './incident-closure.page';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { IncidentClosurePage } from './incident-closure.page';
     IonicModule,
     IncidentClosurePageRoutingModule
   ],
-  declarations: [IncidentClosurePage]
+  declarations: [IncidentClosurePage],
+  providers: [DatePicker],
 })
-export class IncidentClosurePageModule {}
+export class IncidentClosurePageModule { }

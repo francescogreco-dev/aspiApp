@@ -8,13 +8,14 @@ import { IncidentDetailPageRoutingModule } from './incident-detail-routing.modul
 
 import { IncidentDetailPage } from './incident-detail.page';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IncidentClosurePageModule } from '../modals/incident-closure/incident-closure.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    IncidentDetailPageRoutingModule
+    IncidentDetailPageRoutingModule, IncidentClosurePageModule
   ],
   declarations: [IncidentDetailPage], providers: [SplashScreen]
 })
