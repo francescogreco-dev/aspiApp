@@ -1,0 +1,72 @@
+<ion-content fixed class="ion-no-padding">
+  <ion-grid class="ion-no-padding" style="background-color: rgb(58, 62, 75); color: white;">
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Nota</ion-label>
+          <ion-textarea readonly rows="4" cols="20" value="{{incident_closure_note}}"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Data</ion-label>
+          <ion-input readonly value="{{close_date}}"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Viaggio</ion-label>
+          <ion-input readonly value="{{time_travel}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Arrivo</ion-label>
+          <ion-input readonly value="{{time_arrived}}"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">fine</ion-label>
+          <ion-input readonly value="{{time_finish}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">tipo</ion-label>
+          <ion-input readonly value="{{type}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Stato</ion-label>
+          <ion-input readonly value="{{status}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item color="transparent">
+          <ion-label class="ion-no-padding" style="color: rgb(42, 163, 238);" position="floating">Firmatario</ion-label>
+          <ion-input readonly value="{{signatory}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-padding">
+        <ion-button color="danger" expand="block" (click)="ModifyPopover()">Modifica</ion-button>
+      </ion-col>
+      <ion-col class="ion-padding">
+        <ion-button color="success" expand="block" (click)="ClosePopover()">Conferma</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

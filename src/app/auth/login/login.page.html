@@ -1,36 +1,41 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="login(form)">
     <ion-grid fixed="true">
-      <ion-img src="../../../assets/image/logodefinitovo.jpg" style="height: 300px; background-color: white;">
+      <ion-img src="../../../assets/image/new-logo.jpg" style="height: 300px; background-color: white;">
       </ion-img><br>
       <ion-row style="margin-top: 20px;" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div padding>
             <ion-item>
               <ion-label position="floating">Email</ion-label>
-              <ion-input name="email" type="Utente" placeholder="Email" ngModel required></ion-input>
+              <ion-input autocomplete="on" name="email" type="Utente" placeholder="Email" [(ngModel)]="userName"
+                required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Password</ion-label>
-              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+              <app-show-hide-password>
+                <ion-input autocomplete="on" name="password" type="password" placeholder="Password"
+                  [(ngModel)]="password" required>
+                </ion-input>
+              </app-show-hide-password>
+
             </ion-item>
           </div><br>
-          <ion-row>
-            <ion-col col-12 style="padding-top: 50px;">
-              <ion-button shape="round" style="color: black;" expand type="submit" [disabled]="form.invalid"
-                expand="block">
-                Login
-              </ion-button>
-            </ion-col>
-          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-padding" size="11" style="padding-top: 50px;">
+          <ion-button shape="round" type="submit" [disabled]="form.invalid" expand="block">
+            Login
+          </ion-button>
         </ion-col>
       </ion-row><br>
     </ion-grid>
   </form>
 </ion-content>
-<ion-footer>
+<ion-footer class="ion-no-border" mode="md | ios">
   <ion-toolbar>
-    <ion-title style="color: rgb(28, 19, 196); text-align: center; font-size: 0.9rem;">ASPI Information Technology Srl
+    <ion-title class="text-set">ASPI Information Technology Srl
       &nbsp;&nbsp;Ver 1.0
     </ion-title>
   </ion-toolbar>

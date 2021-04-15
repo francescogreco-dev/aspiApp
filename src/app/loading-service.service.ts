@@ -13,7 +13,7 @@ export class LoadingService {
   async present() {
     this.isLoading = true;
     return await this.loadingController.create({
-      message: 'Attendere caricamento dati in corso...'
+      message: 'Attendere <br> caricamento dati in corso...'
     }).then(a => {
       a.present().then(() => {
         console.log('presented');

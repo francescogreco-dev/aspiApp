@@ -1,3 +1,4 @@
+import { ShowHidePasswordComponent } from './../../components/show-hide-password/show-hide-password.component';
 import { TabsPage } from './../../tabs/tabs.page';
 import { Tab1Page } from './../../tab1/tab1.page';
 import { TabsPageModule } from './../../tabs/tabs.module';
@@ -15,10 +16,12 @@ import { LoadingService } from 'src/app/loading-service.service';
 })
 export class LoginPage implements OnInit {
 
+  public userName: string = 'francesco.greco@alice.it'
+  public password: string = '2104197900'
   constructor(private authService: AuthService, private router: Router, private loadingW: LoadingService) { }
 
   ngOnInit() {
-    console.log('sono qui')
+
   }
 
   login(form) {

@@ -1,9 +1,121 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>incidentClosure</ion-title>
+  <ion-toolbar class="new-background-color">
+    <ion-title>Chiusura Ticket {{incident.incident_number}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="closeModal()">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-content style="height: 80%; border-bottom: 2px solid black;">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Nota chiusura
+          </ion-label>
+          <ion-textarea style="border-bottom: 1px solid black;" rows="3" cols="20"
+            [(ngModel)]="incident.incident_closure_note" value=""></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Data chiusura
+          </ion-label>
+          <ion-input [readonly]="true" [(ngModel)]="incident.close_date" (click)="showCalendar()">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Ore viaggio</ion-label>
+          <ion-input [readonly]="true" [(ngModel)]="incident.time_travel" (click)="showClock('travel')">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Ora arrivo</ion-label>
+          <ion-input [readonly]="true" [(ngModel)]="incident.time_arrived" (click)="showClock('arrived')">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Ora fine</ion-label>
+          <ion-input [readonly]="true" [(ngModel)]="incident.time_finish" (click)="showClock('finish')">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-select cancelText="Annulla" okText="Conferma" interface="action-sheet" [(ngModel)]="incident.type"
+          (ionChange)="Getselected(type)" placeholder="tipo intervento" [ngModelOptions]="{standalone: true}">
+          <ion-select-option *ngFor="let item of types" value="{{item}}">{{item}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-select cancelText="Annulla" okText="Conferma" interface="action-sheet" [(ngModel)]="incident.status"
+          (ionChange)="Getselected(status)" placeholder="Stato" [ngModelOptions]="{standalone: true}">
+          <ion-select-option *ngFor="let item of statment" value="{{item}}">{{item}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating" position="floating">Firmatario</ion-label>
+          <ion-input [(ngModel)]="incident.signatory">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-content>
+  <ion-content style="height: 20%;">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label style="color: rgb(42, 163, 238);" position="floating">Ticket esterno</ion-label>
+          <ion-input readonly value="{{incident.incident_number_internal}}"></ion-input>
+        </ion-item>
+        <ion-item style="padding-top: -5px;">
+          <h3 style="color: rgb(42, 163, 238);">Nota apertura ticket</h3>
+        </ion-item>
+        <ion-item>
+          <ion-textarea readonly rows="6" cols="20" value="{{incident.note}}"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <h3 style="color: rgb(42, 163, 238);">Sintomo</h3>
+        </ion-item>
+        <ion-item>
+          <ion-textarea readonly rows="6" cols="20" value="{{incident.symptom}}"></ion-textarea>
+        </ion-item>
+        <ion-card *ngFor="let nota of incident.incident_notes">
+          <ion-card-header>
+            <ion-card-title
+              style="background-color: lightgray; font-size: 1.2rem; padding-top: 5px; padding-bottom: 5px; text-align: center;">
+              Data:
+              {{nota.date_insert + ' ' +
+              nota.time_insert}}
+            </ion-card-title>
+            <ion-card-subtitle>Evento: {{nota.event_type}}</ion-card-subtitle>
+            <ion-card-subtitle>Stato: {{nota.status}}</ion-card-subtitle>
+            <ion-card-subtitle>Utente: {{nota.technical_name}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{nota.text}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-content>
 </ion-content>

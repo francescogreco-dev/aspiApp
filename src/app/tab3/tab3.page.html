@@ -38,8 +38,9 @@
   <ng-container *ngFor="let incident of dati">
     <ion-card *ngIf="incident.getClosed() == true"
       [ngClass]="incident.getClosed() == true ? 'gray' : (incident.getPlanned() == true ? 'gray' : 'gray')">
-      <ion-item [color]=" incident.id % 2 !=0 ? 'primary' : 'primary'">
-        <ion-label style=" text-align: left;"><b>Ticket: {{incident.incident_number}}</b></ion-label>
+      <ion-item [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
+        <ion-label class="incident-text" style=" text-align: left;"><b>Ticket: {{incident.incident_number}}</b>
+        </ion-label>
       </ion-item>
       <ion-card-header class="ion-no-padding" translucent (click)="test(incident)">
         <ion-card-content class="ion-no-padding" style="padding-left: 10px; padding-bottom: 10px; padding-top: 5px;">

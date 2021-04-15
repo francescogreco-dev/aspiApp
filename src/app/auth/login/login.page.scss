@@ -2,7 +2,22 @@ ion-item {
   background: transparent;
 }
 ion-button {
-  --background: rgb(241, 153, 29) !important;
+  --background: rgb(28, 37, 204) !important;
+  color: white !important;
+}
+
+.item .item-input {
+  background-color: transparent;
+}
+
+ion-input {
+  background-color: white !important;
+  background: white !important;
+}
+
+ion-input {
+  --placeholder-color: rgb(44, 72, 167);
+  --placeholder-opacity: 1;
 }
 
 .rounded {
@@ -10,4 +25,48 @@ ion-button {
   -webkit-border-radius: 50px;
   border-radius: 20px;
   margin-bottom: 20px;
+}
+
+ion-item ion-label,
+ion-item ion-icon {
+  margin: 2px;
+}
+
+.new-background-color {
+  --background: rgb(44, 72, 167);
+  --color: white;
+}
+
+@media (max-width: 320px) and (min-width: 180px) {
+  .text-set {
+    font-size: 0.9rem !important;
+    color: rgb(28, 19, 196);
+  }
+}
+
+@media (max-width: 480px) and (min-width: 321px) {
+  .text-set {
+    font-size: 0.9rem !important;
+    color: rgb(28, 19, 196);
+  }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .text-set {
+    font-size: 0.9rem !important;
+    color: rgb(28, 19, 196);
+  }
+}
+
+@media (max-width: 1080px) and (min-width: 769px) {
+  .text-set {
+    font-size: 0.9rem !important;
+    color: rgb(28, 19, 196);
+  }
+}
+
+.ios ion-title {
+  text-align: center !important;
+  padding: 10px;
+  font-size: 0.8rem !important;
 }
