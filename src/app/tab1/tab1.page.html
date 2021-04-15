@@ -44,9 +44,10 @@
       <!-- <ion-card *ngIf="incident.getClosed() == false && incident.planned_date == ''" class="red"> -->
       <ion-card *ngIf="incident.getClosed() == false"
         [ngClass]="incident.planned_date == '' ? 'red' : (incident.planned_date != now ? 'orange' : 'green')">
-        <ion-item [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
-          <ion-reorder slot="end"></ion-reorder>
-          <ion-label style=" text-align: left;"><b>Tk: {{incident.incident_number}}</b></ion-label>
+        <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
+          <ion-reorder slot="start"></ion-reorder>
+          <ion-label class="incident-text" style=" text-align: left;"><b>{{incident.incident_number}}</b>
+          </ion-label>
           <ion-button color="light" style="font-weight: bold;" slot="end" (click)="plannedIncident(incident)">
             <ion-icon name="calendar-outline"></ion-icon>
           </ion-button>

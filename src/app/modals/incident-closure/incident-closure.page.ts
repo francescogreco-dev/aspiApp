@@ -2,7 +2,8 @@ import { IncidentData } from './../../class/incident-data';
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-
+import { ModalController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-incident-closure',
   templateUrl: './incident-closure.page.html',
@@ -11,14 +12,15 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
 export class IncidentClosurePage implements OnInit {
 
   @Input() incident: IncidentData;
-  public incident_closure_note: string;
+  //public incident_closure_note: string;
   public now = new Date;
-  public close_date: string = moment(this.now).format("DD/MM/YYYY").toString();
-  public time_arrived: string = moment(this.now).format("HH:mm").toString();
-  public time_finish: string = moment(this.now).format("HH:mm").toString();
-  public time_travel: string = '00:00';
+  // public close_date = moment(this.now).format("DD/MM/YYYY").toString();
+  // public time_arrived: string = moment(this.now).format("HH:mm").toString();
+  // public time_finish: string = moment(this.now).format("HH:mm").toString();
+  // public time_travel: string = '00:00';
   public type: string;
   public status: string;
+  // public signatory: string;
   public types = [
     '01 Sostituzione',
     '02 Riparazione',
@@ -52,19 +54,23 @@ export class IncidentClosurePage implements OnInit {
     'SOSP Sospeso'
   ]
 
-  constructor(private datePicker: DatePicker) { }
+  constructor(private datePicker: DatePicker, private modalCtrl: ModalController, private platform: Platform) { }
 
   ngOnInit() {
+    this.incident.close_date = moment(this.now).format("DD/MM/YYYY").toString();
+    this.incident.time_arrived = moment(this.now).format("HH:mm").toString();
+    this.incident.time_finish = moment(this.now).format("HH:mm").toString();
+    this.incident.time_travel = '00:00';
   }
 
   showCalendar() {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+      androidTheme: this.platform.is('ios') == true ? this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK : this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
     }).then(
       date => {
-        this.close_date = moment(date).format("DD/MM/YYYY").toString();
+        this.incident.close_date = moment(date).format("DD/MM/YYYY").toString();
       },
       err => console.log('Si è verificato il seguente errore: ', err)
     );
@@ -74,15 +80,17 @@ export class IncidentClosurePage implements OnInit {
     this.datePicker.show({
       date: new Date(),
       mode: 'time',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+      is24Hour: true,
+      minuteInterval: 5,
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
     }).then(
       date => {
         if (fieldReference == 'arrived') {
-          this.time_arrived = moment(date).format("HH:mm").toString();
+          this.incident.time_arrived = moment(date).format("HH:mm").toString();
         } else if (fieldReference == 'finish') {
-          this.time_finish = moment(date).format("HH:mm").toString();
+          this.incident.time_finish = moment(date).format("HH:mm").toString();
         } else if (fieldReference == 'travel') {
-          this.time_travel = moment(date).format("HH:mm").toString();
+          this.incident.time_travel = moment(date).format("HH:mm").toString();
         }
       },
       err => console.log('Si è verificato il seguente errore: ', err)
@@ -91,6 +99,19 @@ export class IncidentClosurePage implements OnInit {
 
   Getselected(selected) {
 
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss({
+      'close_date': this.incident.close_date,
+      'time_arrived': this.incident.time_arrived,
+      'time_finish': this.incident.time_finish,
+      'time_travel': this.incident.time_travel,
+      'type': this.incident.type,
+      'status': this.incident.status,
+      'signatory': this.incident.signatory,
+      'incident_closure_note': this.incident.incident_closure_note
+    });
   }
 
 }

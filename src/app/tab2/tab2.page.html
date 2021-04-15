@@ -38,10 +38,12 @@
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ng-container *ngFor="let incident of dati">
       <ion-card *ngIf="incident.planned_date == now" [ngClass]="(incident.getPlanned() == true ? 'green' : 'orange')">
-        <ion-item [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
-          <ion-reorder slot="end"></ion-reorder>
-          <ion-label style=" text-align: left;"><b>Tk: {{incident.incident_number}}</b></ion-label>
-          <ion-button color="light" style="font-weight: bold;" slot="end">
+        <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
+          <ion-reorder slot="start"></ion-reorder>
+          <ion-label class="ion-no-padding" class="incident-text" style=" text-align: left;"><b>Tk:
+              {{incident.incident_number}}</b>
+          </ion-label>
+          <ion-button color="light" style="font-weight: bold;" slot="end" (click)="plannedIncident(incident)">
             <ion-icon name="calendar-outline"></ion-icon>
           </ion-button>
         </ion-item>

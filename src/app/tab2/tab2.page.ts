@@ -8,6 +8,8 @@ import { EventsService } from './../events.service';
 
 import * as moment from 'moment';
 import { DataIncidentsService } from '../data-incidents.service';
+import { LoadingService } from '../loading-service.service';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -23,7 +25,8 @@ export class Tab2Page {
   };
   public now: string;
   constructor(private route: Router, private splashScreen: SplashScreen, private events: EventsService,
-    private dataService: DataIncidentsService) {
+    private dataService: DataIncidentsService,
+    private loadingW: LoadingService, private datePicker: DatePicker, private alertController: AlertController,) {
 
   }
 
@@ -40,7 +43,8 @@ export class Tab2Page {
   test(incident: IncidentData) {
     let pass = JSON.stringify(incident)
     this.route.navigate(['incident-detail', { pass }]);
-    this.splashScreen.show();
+    //this.splashScreen.show();
+    this.loadingW.present();
   }
 
   doReorder(ev: CustomEvent<ItemReorderEventDetail>) {
@@ -57,5 +61,54 @@ export class Tab2Page {
 
   toggleReorderGroup() {
     this.reorderGroup.disabled = !this.reorderGroup.disabled;
+  }
+
+  async plannedIncident(incident: IncidentData) {
+    const alert = await this.alertController.create({
+      header: 'Pianificazione intervento',
+      message: 'Si vuole davvero pracedere?',
+      buttons: [{
+        text: 'Annulla',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          //console.log('Annullato');
+        }
+      }, {
+        text: 'Procedi',
+        handler: () => {
+          this.showDateCalendar(incident);
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
+  showDateCalendar(incident: IncidentData) {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
+    }).then(
+      date => {
+        incident.planned_date = moment(date).format("DD/MM/YYYY").toString();
+        incident.is_planned = true;
+        this.saveIncident(incident);
+      },
+      err => console.log('Si è verificato il seguente errore: ', err)
+    );
+  }
+
+  saveIncident(incident: IncidentData) {
+    this.dataService.save(incident);
+    this.dati = this.dataService.getDataAll();
+    this.getCount();
+    //this.rebuildData(incident)
+  }
+
+  getCount() {
+    let counts = this.dataService.getCounts();
+    this.events.publishData({ countAssegnati: counts.countAssegnati, countPianificati: counts.countPianificati, countChiusi: counts.countChiusi });
   }
 }

@@ -17,7 +17,7 @@ export class IncidentData {
   public requested_time: string;
   public device: string;
   public event_type: string;
-  private status: string = 'Da pianificare';
+  //private status: string = 'Da pianificare';
   public symptom: string;
   public address: string;
   public phone_1: string;
@@ -26,8 +26,16 @@ export class IncidentData {
   public appointment: string = null;
   public planned_date: string;
   public incident_notes: IncidentNote[] = [];
-  private is_close: boolean = false;
+  public is_close: boolean = false;
   public is_planned: boolean = false;
+  public close_date: string;
+  public time_arrived: string;
+  public time_finish: string;
+  public time_travel: string;
+  public type: string;
+  public status: string;
+  public signatory: string;
+  public incident_closure_note: string;
 
   constructor(dati?: any) {
     if (dati != null) {

@@ -22,3 +22,31 @@ ion-toolbar,
 ion-header {
   --min-height: 40px;
 }
+
+@media (max-width: 320px) {
+  .incident-text {
+    font-size: 0.9rem !important;
+    // color: yellow;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 321px) {
+  .incident-text {
+    font-size: 1.1rem !important;
+    // color: red;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .incident-text {
+    font-size: 1.1rem !important;
+    // color: green;
+  }
+}
+
+@media (max-width: 1080px) and (min-width: 769px) {
+  .incident-text {
+    font-size: 1.1rem !important;
+    // color: blueviolet;
+  }
+}

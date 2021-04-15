@@ -8,12 +8,17 @@
           <div padding>
             <ion-item>
               <ion-label position="floating">Email</ion-label>
-              <ion-input autocomplete="on" name="email" type="Utente" placeholder="Email" ngModel required></ion-input>
+              <ion-input autocomplete="on" name="email" type="Utente" placeholder="Email" [(ngModel)]="userName"
+                required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Password</ion-label>
-              <ion-input autocomplete="on" name="password" type="password" placeholder="Password" ngModel required>
-              </ion-input>
+              <app-show-hide-password>
+                <ion-input autocomplete="on" name="password" type="password" placeholder="Password"
+                  [(ngModel)]="password" required>
+                </ion-input>
+              </app-show-hide-password>
+
             </ion-item>
           </div><br>
         </ion-col>
@@ -28,9 +33,9 @@
     </ion-grid>
   </form>
 </ion-content>
-<ion-footer>
+<ion-footer class="ion-no-border" mode="md | ios">
   <ion-toolbar>
-    <ion-title style="color: rgb(28, 19, 196); text-align: center; font-size: 0.9rem;">ASPI Information Technology Srl
+    <ion-title class="text-set">ASPI Information Technology Srl
       &nbsp;&nbsp;Ver 1.0
     </ion-title>
   </ion-toolbar>

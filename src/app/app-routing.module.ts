@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'incident-closure',
     loadChildren: () => import('./modals/incident-closure/incident-closure.module').then( m => m.IncidentClosurePageModule)
+  },
+  {
+    path: 'popovercomponent',
+    loadChildren: () => import('./popovercomponent/popovercomponent.module').then( m => m.PopovercomponentPageModule)
   }
 ];
 @NgModule({

@@ -176,7 +176,8 @@ export class Tab1Page {
   test(incident: IncidentData) {
     let pass = JSON.stringify(incident)
     this.route.navigate(['incident-detail', { pass }]);
-    this.splashScreen.show();
+    //this.splashScreen.show();
+    this.loadingW.present();
   }
 
   async plannedIncident(incident: IncidentData) {
@@ -205,7 +206,7 @@ export class Tab1Page {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
     }).then(
       date => {
         incident.planned_date = moment(date).format("DD/MM/YYYY").toString();

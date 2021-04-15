@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
     ExploreContainerComponentModule,
     Tab2PageRoutingModule
   ],
-  providers: [SplashScreen],
+  providers: [SplashScreen, DatePicker],
   declarations: [Tab2Page]
 })
 export class Tab2PageModule { }

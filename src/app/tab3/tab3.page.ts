@@ -3,6 +3,7 @@ import { IncidentData } from './../class/incident-data';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Router } from '@angular/router';
 import { DataIncidentsService } from '../data-incidents.service';
+import { LoadingService } from '../loading-service.service';
 
 @Component({
   selector: 'app-tab3',
@@ -12,7 +13,8 @@ import { DataIncidentsService } from '../data-incidents.service';
 export class Tab3Page {
   public dati: IncidentData[];
   constructor(private route: Router, private splashScreen: SplashScreen,
-    private dataService: DataIncidentsService) {
+    private dataService: DataIncidentsService,
+    private loadingW: LoadingService) {
     // let tmp = localStorage.getItem('dati');
     // let dataTemp = [];
     // let appData: IncidentData[] = []
@@ -51,7 +53,8 @@ export class Tab3Page {
   test(incident: IncidentData) {
     let pass = JSON.stringify(incident)
     this.route.navigate(['incident-detail', { pass }]);
-    this.splashScreen.show();
+    //this.splashScreen.show();
+    this.loadingW.present();
   }
 
 }
