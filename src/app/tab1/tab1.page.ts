@@ -53,19 +53,19 @@ export class Tab1Page {
     // this.dataNoPlanned = this.dataService.getDataNoPlanned()
     // this.dataPlannedNoToday = this.dataService.getDataPlannedNoToday();
     // this.dataPlannedToday = this.dataService.getDataPlannedToday();
-    let app: IncidentData[] = [];
-    let tmp = localStorage.getItem('dati');
-    if (tmp && tmp != '' && tmp != '[]') {
-      let dataTemp = JSON.parse(tmp);
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        console.log('sono qui')
-        app.push(u);
-      })
-    } else {
-      app = this.dataService.getDataAll();
-    }
-    this.dati = app;
+    // let tmp = localStorage.getItem('dati');
+    // if (tmp && tmp != '' && tmp != '[]') {
+    //   let dataTemp = JSON.parse(tmp);
+    //   dataTemp.forEach((ele) => {
+    //     let u = new IncidentData(ele);
+    //     console.log('sono qui')
+    //     app.push(u);
+    //   })
+    // } else {
+    this.dataService.getDataAll().subscribe((data) => {
+      this.dati = data;
+      this.getCount();
+    });
   }
 
   OnInit() {
@@ -90,31 +90,31 @@ export class Tab1Page {
 
   ionViewWillEnter() {
     //this.buildData()
-    this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
-    this.getCount();
-    this.buildFilters();
+    this.now = new Date().toLocaleDateString('it-IT', this.options);
+    // this.getCount();
+    // this.buildFilters();
   }
 
-  buildData() {
-    let tmp = localStorage.getItem('dati');
-    let dataTemp = [];
-    let appData: IncidentData[] = []
-    if (tmp) {
-      dataTemp = JSON.parse(tmp);
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        appData.push(u);
-      })
-      this.dati = appData;
-    } else {
-      this.dati = IncidentData.getFakeDataArray2();
-      localStorage.setItem('dati', JSON.stringify(this.dati));
-    }
-    this._dati = this.dati;
-    this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
-    this.getCount();
-    this.buildFilters();
-  }
+  // buildData() {
+  //   let tmp = localStorage.getItem('dati');
+  //   let dataTemp = [];
+  //   let appData: IncidentData[] = []
+  //   if (tmp) {
+  //     dataTemp = JSON.parse(tmp);
+  //     dataTemp.forEach((ele) => {
+  //       let u = new IncidentData(ele);
+  //       appData.push(u);
+  //     })
+  //     this.dati = appData;
+  //   } else {
+  //     this.dati = IncidentData.getFakeDataArray2();
+  //     localStorage.setItem('dati', JSON.stringify(this.dati));
+  //   }
+  //   this._dati = this.dati;
+  //   this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
+  //   this.getCount();
+  //   this.buildFilters();
+  // }
 
   buildFilters() {
     let clients = [];
@@ -151,25 +151,26 @@ export class Tab1Page {
 
   getCount() {
     let counts = this.dataService.getCounts();
-    // let countPianificati = 0
-    // let countChiusi = 0;
-    // let countAssegnati = 0;
-    // this.dati.forEach(function (data) {
-    //   if (data.is_planned == true && data.getClosed() == false) {
-    //     let current = new Date();
-    //     let plan = moment(data.planned_date, "DD-MM-YYYY").toDate();
-    //     if (current.getDate() == plan.getDate()) {
-    //       countPianificati++;
-    //     }
-    //   }
-    //   if (data.getClosed() == true) {
-    //     countChiusi += 1;
-    //   }
-    //   countAssegnati += 1;
-    // });
-    // this.countAssegnati = countAssegnati - countChiusi;
-    // this.countChiusi = countChiusi;
-    // this.countPianificati = countPianificati;
+    console.log('io sono counts', counts)
+    let countPianificati = 0
+    let countChiusi = 0;
+    let countAssegnati = 0;
+    this.dati.forEach(function (data) {
+      if (data.is_planned == true && data.getClosed() == false) {
+        let current = new Date();
+        let plan = moment(data.planned_date, "DD-MM-YYYY").toDate();
+        if (current.getDate() == plan.getDate()) {
+          countPianificati++;
+        }
+      }
+      if (data.getClosed() == true) {
+        countChiusi += 1;
+      }
+      countAssegnati += 1;
+    });
+    this.countAssegnati = countAssegnati - countChiusi;
+    this.countChiusi = countChiusi;
+    this.countPianificati = countPianificati;
     this.events.publishData({ countAssegnati: counts.countAssegnati, countPianificati: counts.countPianificati, countChiusi: counts.countChiusi });
   }
 
@@ -211,41 +212,41 @@ export class Tab1Page {
       date => {
         incident.planned_date = moment(date).format("DD/MM/YYYY").toString();
         incident.is_planned = true;
-        this.saveIncident(incident);
+        // this.saveIncident(incident);
       },
       err => console.log('Si è verificato il seguente errore: ', err)
     );
   }
 
-  saveIncident(incident: IncidentData) {
-    this.dataService.save(incident);
-    this.dati = this.dataService.getDataAll();
-    this.getCount();
-    //this.rebuildData(incident)
-  }
+  // saveIncident(incident: IncidentData) {
+  //   this.dataService.save(incident);
+  //   this.dati = this.dataService.getDataAll();
+  //   this.getCount();
+  //   //this.rebuildData(incident)
+  // }
 
-  rebuildData(incident: IncidentData) {
-    let tmp: IncidentData[] = [];
-    let variableSet = '';
-    let variable;
-    if (incident.planned_date == this.now) {
-      variableSet = 'dataPlannedToday'
-      variable = this.dataPlannedToday;
-    } else {
-      variableSet = 'dataPlannedNoToday'
-      variable = this.dataPlannedNoToday;
-    }
-    variable.forEach(incidentEle => {
-      if (incidentEle.id_incident == incident.id_incident) {
-        tmp.push(incident);
-      } else {
-        tmp.push(incidentEle);
-      }
-      localStorage.setItem(variableSet, JSON.stringify(tmp));
-      this.dati = this.dataService.getDataAll();
-      this.getCount();
-    })
-  }
+  // rebuildData(incident: IncidentData) {
+  //   let tmp: IncidentData[] = [];
+  //   let variableSet = '';
+  //   let variable;
+  //   if (incident.planned_date == this.now) {
+  //     variableSet = 'dataPlannedToday'
+  //     variable = this.dataPlannedToday;
+  //   } else {
+  //     variableSet = 'dataPlannedNoToday'
+  //     variable = this.dataPlannedNoToday;
+  //   }
+  //   variable.forEach(incidentEle => {
+  //     if (incidentEle.id_incident == incident.id_incident) {
+  //       tmp.push(incident);
+  //     } else {
+  //       tmp.push(incidentEle);
+  //     }
+  //     localStorage.setItem(variableSet, JSON.stringify(tmp));
+  //     this.dati = this.dataService.getDataAll();
+  //     this.getCount();
+  //   })
+  // }
 
   async showFilter(type) {
     const modal = await this.modalController.create({
@@ -296,7 +297,7 @@ export class Tab1Page {
 
   doRefresh(event) {
     console.log('Begin async operation', event);
-    this.buildData()
+    // this.buildData()
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

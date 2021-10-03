@@ -1,11 +1,16 @@
 import { IncidentData } from './class/incident-data';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { IncidentNote } from './class/incident-note';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataIncidentsService {
 
+  public urlApi = 'http://francescogreco.ddns.net:3001/';
   public dataAll: IncidentData[] = [];
   public dataNoPlanned: IncidentData[] = [];
   public dataPlannedNoToday: IncidentData[] = [];
@@ -21,138 +26,92 @@ export class DataIncidentsService {
     day: "2-digit"
   };
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
   }
 
-  getDataNoPlanned() {
-    let dataTemp = [];
+  getDataNoPlanned(dataTemp: IncidentData[]) {
     let appData: IncidentData[] = []
-    let tmp = localStorage.getItem('dataNoPlanned');
-    if (tmp) {
-      dataTemp = JSON.parse(tmp);
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        if (u.is_planned == false && u.getClosed() == false) {
-          appData.push(u);
-        }
-      })
-    } else {
-      dataTemp = IncidentData.getFakeDataArray2();
-      dataTemp.forEach((ele) => {
-        if (ele.is_planned == false && ele.getClosed() == false) {
-          appData.push(ele);
-        }
-      })
-      localStorage.setItem('dataNoPlanned', JSON.stringify(appData));
-    }
+    dataTemp.forEach((ele) => {
+      if (ele.is_planned == false && ele.getClosed() == false) {
+        appData.push(ele);
+      }
+    })
+    localStorage.setItem('dataNoPlanned', JSON.stringify(appData));
     this.dataNoPlanned = appData;
     return this.dataNoPlanned;
   }
 
-  getDataPlannedNoToday() {
-    let dataTemp = [];
+  getDataPlannedNoToday(dataTemp: IncidentData[]) {
     let appData: IncidentData[] = []
-    let tmp = localStorage.getItem('dataPlannedNoToday');
-    if (tmp) {
-      dataTemp = JSON.parse(tmp);
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        if (u.is_planned == true && u.planned_date != this.now && u.getClosed() == false) {
-          appData.push(u);
-        }
-      })
-    } else {
-      dataTemp = IncidentData.getFakeDataArray2();
-      dataTemp.forEach((ele) => {
-        if (ele.is_planned == true && ele.planned_date != this.now && ele.getClosed() == false) {
-          appData.push(ele);
-        }
-      })
-      localStorage.setItem('dataPlannedNoToday', JSON.stringify(appData));
-    }
+    dataTemp.forEach((ele) => {
+      let dataCompare = new Date(ele.planned_date).toLocaleDateString('it-IT', this.options);
+      if (ele.is_planned == true && dataCompare != this.now && ele.getClosed() == false) {
+        appData.push(ele);
+      }
+    })
+    localStorage.setItem('dataPlannedNoToday', JSON.stringify(appData));
     this.dataPlannedNoToday = appData;
     return this.dataPlannedNoToday;
   }
 
-  getDataPlannedToday() {
-    let dataTemp = [];
+  getDataPlannedToday(dataTemp: IncidentData[]) {
     let appData: IncidentData[] = []
-    let tmp = localStorage.getItem('dataPlannedToday');
-    if (tmp) {
-      dataTemp = JSON.parse(tmp);
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        if (u.is_planned == true && u.planned_date == this.now && u.getClosed() == false) {
-          appData.push(u);
-        }
-      })
-    } else {
-      dataTemp = IncidentData.getFakeDataArray2();
-      dataTemp.forEach((ele) => {
-        if (ele.is_planned == true && ele.planned_date == this.now && ele.getClosed() == false) {
-          appData.push(ele);
-        }
-      })
-      localStorage.setItem('dataPlannedToday', JSON.stringify(appData));
-    }
+    console.log(typeof (dataTemp))
+    dataTemp.forEach((ele) => {
+      let dataCompare = new Date(ele.planned_date).toLocaleDateString('it-IT', this.options);
+      if (ele.is_planned == true && dataCompare === this.now && ele.getClosed() == false) {
+        appData.push(ele);
+      }
+    })
+    localStorage.setItem('dataPlannedToday', JSON.stringify(appData));
     this.dataPlannedToday = appData;
-    return this.dataPlannedToday;
+    console.log(this.dataPlannedToday.length)
+    return appData;
   }
 
-  getDataClosed() {
-    let dataTemp = [];
+  getDataClosed(dataTemp: IncidentData[]) {
     let appData: IncidentData[] = []
-    let tmp = localStorage.getItem('dataClosed');
-    if (tmp) {
-      dataTemp = JSON.parse(tmp);
-    }
-    if (dataTemp.length != 0) {
-      dataTemp.forEach((ele) => {
-        let u = new IncidentData(ele);
-        if (u.getClosed() == true) {
-          appData.push(u);
-        }
-      })
-    } else {
-      dataTemp = IncidentData.getFakeDataArray2();
-      dataTemp.forEach((ele) => {
-        if (ele.getClosed() == true) {
-          appData.push(ele);
-        }
-      })
-      localStorage.setItem('dataClosed', JSON.stringify(appData));
-    }
+    dataTemp.forEach((ele) => {
+      if (ele.getClosed() == true) {
+        appData.push(ele);
+      }
+    })
+    localStorage.setItem('dataClosed', JSON.stringify(appData));
     this.dataClosed = appData;
     return this.dataClosed;
   }
 
-  getDataAll() {
-    // let tmp = localStorage.getItem('dati');
-    // if (tmp) {
-    //   this.dataAll = JSON.parse(tmp);
-    // } else {
-    //   this.getDataNoPlanned();
-    //   this.getDataPlannedNoToday();
-    //   this.getDataPlannedToday();
-    //   this.getDataClosed();
-    //   this.dataAll = this.dataNoPlanned.concat(this.dataPlannedNoToday).concat(this.dataPlannedToday);
-    // }
-    // return this.dataAll;
-
-    this.getDataNoPlanned();
-    this.getDataPlannedNoToday();
-    this.getDataPlannedToday();
-    this.getDataClosed();
-    this.dataAll = this.dataNoPlanned.concat(this.dataPlannedNoToday).concat(this.dataPlannedToday);
-    return this.dataAll;
+  getDataAll(): Observable<IncidentData[]> {
+    const username = localStorage.getItem('username');
+    const endPoint = this.urlApi + 'evento/getTickets/' + username + '/' + 'open';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      })
+    };
+    return this.http.get(endPoint, httpOptions).pipe(
+      map((res: any) => res),
+      map((res: [IncidentData]) => {
+        let tmp = res.map(r => new IncidentData(r));
+        this.getDataNoPlanned(tmp);
+        this.getDataPlannedNoToday(tmp);
+        this.getDataPlannedToday(tmp);
+        this.getDataClosed(tmp);
+        this.dataAll = this.dataNoPlanned.concat(this.dataPlannedNoToday).concat(this.dataPlannedToday);
+        return this.dataAll;
+      }),
+      tap(res => {
+        localStorage.setItem('dati', JSON.stringify(res));
+      })
+    );
   }
 
   getCounts() {
-    this.getDataClosed();
-    this.getDataNoPlanned();
-    this.getDataPlannedToday();
-    this.getDataPlannedNoToday();
+    this.getDataClosed(this.dataAll);
+    this.getDataNoPlanned(this.dataAll);
+    this.getDataPlannedToday(this.dataAll);
+    this.getDataPlannedNoToday(this.dataAll);
     console.log(this.dataNoPlanned.length, this.dataPlannedNoToday.length, this.dataPlannedToday.length)
     this.countAssegnati = (this.dataNoPlanned.length + this.dataPlannedNoToday.length + this.dataPlannedToday.length);
     this.countChiusi = this.dataClosed.length;
@@ -160,22 +119,22 @@ export class DataIncidentsService {
     return { countAssegnati: this.countAssegnati, countChiusi: this.countChiusi, countPianificati: this.countPianificati }
   }
 
-  save(incident: IncidentData) {
-    let data = this.getDataAll();
-    let copy: IncidentData[] = [];
-    data.forEach((incidentActual) => {
-      if (incidentActual.id_incident == incident.id_incident) {
-        copy.push(incident);
-      } else {
-        copy.push(incidentActual);
-      }
-    })
-    this.saveDataClosed(copy);
-    this.saveDataNoPlanned(copy);
-    this.saveDataPlannedToday(copy);
-    this.saveDataPlannedNoToday(copy);
-    this.saveDati(copy);
-  }
+  // save(incident: IncidentData) {
+  //   let data = this.getDataAll();
+  //   let copy: IncidentData[] = [];
+  //   data.forEach((incidentActual) => {
+  //     if (incidentActual.id_incident == incident.id_incident) {
+  //       copy.push(incident);
+  //     } else {
+  //       copy.push(incidentActual);
+  //     }
+  //   })
+  //   this.saveDataClosed(copy);
+  //   this.saveDataNoPlanned(copy);
+  //   this.saveDataPlannedToday(copy);
+  //   this.saveDataPlannedNoToday(copy);
+  //   this.saveDati(copy);
+  // }
 
   saveDataPlannedToday(incidentArray: IncidentData[]) {
     let tmp: IncidentData[] = [];
@@ -225,6 +184,24 @@ export class DataIncidentsService {
     let all = this.getDataAll();
     localStorage.setItem('dati', JSON.stringify(all));
     console.log('finito 5')
+  }
+
+  getNotes(incident_id: string): Observable<IncidentNote[]> {
+    const endPoint = this.urlApi + 'evento';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      }),
+      params: new HttpParams({ fromString: 'filter={"where":{"eventoIdRaggruppato":' + incident_id + '}}' })
+    }
+    return this.http.get(endPoint, httpOptions).pipe(
+      map((res: any) => res),
+      map((res: [IncidentNote]) => {
+        let tmp = res.map(r => new IncidentNote(r));
+        console.log('io sono le note', tmp);
+        return tmp;
+      })
+    )
   }
 
 }

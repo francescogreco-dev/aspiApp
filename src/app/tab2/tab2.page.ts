@@ -36,7 +36,8 @@ export class Tab2Page {
 
   buildData() {
     this.now = new Date().toLocaleDateString('it-IT', this.options).toString();
-    this.dati = this.dataService.getDataPlannedToday();
+    let incidents = localStorage.getItem('dataPlannedToday');
+    this.dati = JSON.parse(incidents);
   }
 
 
@@ -101,9 +102,9 @@ export class Tab2Page {
   }
 
   saveIncident(incident: IncidentData) {
-    this.dataService.save(incident);
-    this.dati = this.dataService.getDataAll();
-    this.getCount();
+    // this.dataService.save(incident);
+    // this.dati = this.dataService.getDataAll();
+    // this.getCount();
     //this.rebuildData(incident)
   }
 

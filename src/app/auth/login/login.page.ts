@@ -16,8 +16,8 @@ import { LoadingService } from 'src/app/loading-service.service';
 })
 export class LoginPage implements OnInit {
 
-  public userName: string = 'francesco.greco@alice.it'
-  public password: string = '2104197900'
+  public userName: string = 'salvo'
+  public password: string = 'Valentina83'
   constructor(private authService: AuthService, private router: Router, private loadingW: LoadingService) { }
 
   ngOnInit() {
@@ -27,7 +27,12 @@ export class LoginPage implements OnInit {
   login(form) {
     this.loadingW.present();
     this.authService.login(form.value).subscribe((res) => {
-      localStorage.setItem('token', res.id);
+      console.log(res);
+      localStorage.setItem('token', res.tokens.accessToken);
+      localStorage.setItem('refreshToken', res.tokens.refreshToken);
+      localStorage.setItem('tecnico_id', res.user.tecnicoId);
+      localStorage.setItem('username', res.user.username);
+      localStorage.setItem('user', res.user);
       this.loadingW.dismiss();
       this.router.navigateByUrl('/tabs', { replaceUrl: true })
     },

@@ -47,7 +47,7 @@
     "@types/node": "^12.11.1",
     "call-number": "^1.0.1",
     "codelyzer": "^6.0.0",
-    "cordova-android": "^9.0.0",
+    "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-datepicker": "^0.9.3",
@@ -65,6 +65,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "mx.ferreyra.callnumber": "^0.0.2",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
@@ -82,10 +83,10 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "mx.ferreyra.callnumber": {},
-      "cordova-plugin-datepicker": {}
+      "cordova-plugin-datepicker": {},
+      "call-number": {}
     },
     "platforms": [
-      "android",
       "browser",
       "ios"
     ]
