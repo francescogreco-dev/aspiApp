@@ -50,18 +50,6 @@ export class Tab1Page {
     private datePicker: DatePicker,
     private dataService: DataIncidentsService
   ) {
-    // this.dataNoPlanned = this.dataService.getDataNoPlanned()
-    // this.dataPlannedNoToday = this.dataService.getDataPlannedNoToday();
-    // this.dataPlannedToday = this.dataService.getDataPlannedToday();
-    // let tmp = localStorage.getItem('dati');
-    // if (tmp && tmp != '' && tmp != '[]') {
-    //   let dataTemp = JSON.parse(tmp);
-    //   dataTemp.forEach((ele) => {
-    //     let u = new IncidentData(ele);
-    //     console.log('sono qui')
-    //     app.push(u);
-    //   })
-    // } else {
     this.dataService.getDataAll().subscribe((data) => {
       this.dati = data;
       this.getCount();
