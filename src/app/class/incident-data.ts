@@ -1,7 +1,4 @@
-import { not } from "@angular/compiler/src/output/output_ast";
-import { Data } from "@angular/router";
 import { IncidentNote } from "./incident-note";
-import { ApEventi } from './../../../../../loopback/aspi-real-api/aspi-api/src/models/ap-eventi.model';
 
 export class IncidentData {
 
