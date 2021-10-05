@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain>localhost</domain>
-        <domain>www.bebgestory.it</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">http://francescogreco.ddns.net:3001</domain>
     </domain-config>
 </network-security-config>

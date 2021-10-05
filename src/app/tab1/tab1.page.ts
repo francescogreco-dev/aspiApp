@@ -60,7 +60,7 @@ export class Tab1Page {
 
   }
 
-  doReorder(ev: CustomEvent<ItemReorderEventDetail>) {
+  doReorder(ev) {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
