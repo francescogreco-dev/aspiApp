@@ -43,7 +43,7 @@
 
       <!-- <ion-card *ngIf="incident.getClosed() == false && incident.planned_date == ''" class="red"> -->
       <ion-card *ngIf="incident.getClosed() == false"
-        [ngClass]="incident.planned_date == '' ? 'red' : ((incident.planned_date | date: 'dd/MM/yyyy') != now ? 'orange' : 'green')">
+        [ngClass]="incident.planned_date == '' || incident.planned_date == null ? 'red' : ((incident.planned_date | date: 'dd/MM/yyyy') != now ? 'orange' : 'green')">
         <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
           <ion-reorder slot="start"></ion-reorder>
           <ion-label class="incident-text" style=" text-align: left;"><b>{{incident.incident_number}}</b>
@@ -54,7 +54,7 @@
         </ion-item>
         <ion-card-header class="ion-no-padding" translucent (click)="test(incident)">
           <ion-card-content class="ion-no-padding" style="padding-left: 10px; padding-bottom: 10px; padding-top: 5px;">
-            Ticket esterno: <b>{{incident.incident_number_internal}}</b>
+            Ticket interno: <b>{{incident.incident_number_internal}}</b>
             <br>
             Device: <b>{{incident.device}}</b>
             <br>

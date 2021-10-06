@@ -83,8 +83,7 @@
       "call-number": {}
     },
     "platforms": [
-      "browser",
-      "android"
+      "browser"
     ]
   }
 }

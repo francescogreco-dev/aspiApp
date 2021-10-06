@@ -53,6 +53,7 @@ export class Tab1Page {
     this.dataService.getDataAll().subscribe((data) => {
       this.dati = data;
       this.getCount();
+      this.buildFilters();
     });
   }
 
@@ -285,7 +286,10 @@ export class Tab1Page {
 
   doRefresh(event) {
     console.log('Begin async operation', event);
-    // this.buildData()
+    this.dataService.getDataAll().subscribe((data) => {
+      this.dati = data;
+      this.getCount();
+    });
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

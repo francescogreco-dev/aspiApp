@@ -24,6 +24,7 @@ export class IncidentData {
   public appointment: string = null;
   public planned_date: string = '';
   public incident_notes: IncidentNote[] = [];
+  public incident_start_note: string = '';
   public is_close: boolean = false;
   public is_planned: boolean = false;
   public close_date: string = '';
@@ -38,12 +39,12 @@ export class IncidentData {
   constructor(dati: any) {
     this.id_incident = dati.eventoId;
     this.id_technical = dati.utenteInoltro
-    this.incident_notes = dati.noteEvento;
+    this.incident_start_note = dati.noteEvento;
     this.incident_number = dati.apEventi.workorder;
-    this.incident_number_internal = dati.apEventi.numeroIntervento;
+    this.incident_number_internal = dati.apEventi.codchiE;
     this.is_close = (dati.esitoEvento == 0 ? false : true);
     this.is_planned = (dati.apEventi.dataPianifica != null && dati.apEventi.dataPianifica != '' ? true : false);
-    //this.note = dati.note;
+    this.note = dati.oggetto;
     this.phone_1 = dati.apEventi.telContatto;
     this.phone_2 = dati.apEventi.cellContatto;
     this.planned_date = dati.apEventi.dataPianifica;
@@ -52,7 +53,7 @@ export class IncidentData {
     this.requested_time = dati.apEventi.oraRichiestaCli;
     this.status = dati.esitoEvento;
     this.symptom = dati.descrizioneEvento;
-    this.address = dati.apEventi.aPEventiCfDestinazione.desDestMerce + ' ' + (dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest != undefined ? dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest : '');
+    this.address = dati.apEventi.aPEventiCfDestinazione != undefined ? (dati.apEventi.aPEventiCfDestinazione.desDestMerce + ' ' + (dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest != undefined ? dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest : '')) : "";
     //this.appointment = dati.appointment;
     this.client = dati.eventoCodCf.ragSocCf;
     this.common = dati.eventoCodCf.comuneCf;
