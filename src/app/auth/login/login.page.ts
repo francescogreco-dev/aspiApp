@@ -27,7 +27,6 @@ export class LoginPage implements OnInit {
   login(form) {
     this.loadingW.present();
     this.authService.login(form.value).subscribe((res) => {
-      console.log(res);
       localStorage.setItem('token', res.tokens.accessToken);
       localStorage.setItem('refreshToken', res.tokens.refreshToken);
       localStorage.setItem('tecnico_id', res.user.tecnicoId);

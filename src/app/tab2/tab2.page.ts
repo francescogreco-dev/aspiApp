@@ -52,7 +52,7 @@ export class Tab2Page {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     const value = (event as CustomEvent<ItemReorderEventDetail>).detail.complete();
-    console.log('Dragged from index', value.detail.from, 'to', value.detail.to);
+    //console.log('Dragged from index', value.detail.from, 'to', value.detail.to);
     //console.log('prima di completare', this.dati);
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly

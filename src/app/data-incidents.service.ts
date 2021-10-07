@@ -57,7 +57,6 @@ export class DataIncidentsService {
 
   getDataPlannedToday(dataTemp: IncidentData[]) {
     let appData: IncidentData[] = []
-    console.log(typeof (dataTemp))
     dataTemp.forEach((ele) => {
       let dataCompare = new Date(ele.planned_date).toLocaleDateString('it-IT', this.options);
       if (ele.is_planned == true && dataCompare === this.now && ele.getClosed() == false) {
@@ -66,7 +65,6 @@ export class DataIncidentsService {
     })
     localStorage.setItem('dataPlannedToday', JSON.stringify(appData));
     this.dataPlannedToday = appData;
-    console.log(this.dataPlannedToday.length)
     return appData;
   }
 
@@ -112,7 +110,6 @@ export class DataIncidentsService {
     this.getDataNoPlanned(this.dataAll);
     this.getDataPlannedToday(this.dataAll);
     this.getDataPlannedNoToday(this.dataAll);
-    console.log(this.dataNoPlanned.length, this.dataPlannedNoToday.length, this.dataPlannedToday.length)
     this.countAssegnati = (this.dataNoPlanned.length + this.dataPlannedNoToday.length + this.dataPlannedToday.length);
     this.countChiusi = this.dataClosed.length;
     this.countPianificati = this.dataPlannedToday.length;
@@ -144,7 +141,6 @@ export class DataIncidentsService {
       }
     })
     localStorage.setItem('dataPlannedToday', JSON.stringify(tmp));
-    console.log('finito 1')
   }
 
   saveDataClosed(incidentArray: IncidentData[]) {
@@ -155,7 +151,6 @@ export class DataIncidentsService {
       }
     })
     localStorage.setItem('dataClosed', JSON.stringify(tmp));
-    console.log('finito 2')
   }
 
   saveDataNoPlanned(incidentArray: IncidentData[]) {
@@ -166,7 +161,6 @@ export class DataIncidentsService {
       }
     })
     localStorage.setItem('dataNoPlanned', JSON.stringify(tmp));
-    console.log('finito 3')
   }
 
   saveDataPlannedNoToday(incidentArray: IncidentData[]) {
@@ -177,13 +171,11 @@ export class DataIncidentsService {
       }
     })
     localStorage.setItem('dataPlannedNoToday', JSON.stringify(tmp));
-    console.log('finito 4')
   }
 
   saveDati(incidentArray: IncidentData[]) {
     let all = this.getDataAll();
     localStorage.setItem('dati', JSON.stringify(all));
-    console.log('finito 5')
   }
 
   getNotes(incident_id: string): Observable<IncidentNote[]> {
@@ -198,10 +190,19 @@ export class DataIncidentsService {
       map((res: any) => res),
       map((res: [IncidentNote]) => {
         let tmp = res.map(r => new IncidentNote(r));
-        console.log('io sono le note', tmp);
         return tmp;
       })
     )
+  }
+
+  setPlanDate(event_id: number, date: Date): Observable<any> {
+    const endPoint = this.urlApi + 'ap-eventi/' + event_id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      })
+    }
+    return this.http.patch(endPoint, { dataPianifica: date });
   }
 
 }

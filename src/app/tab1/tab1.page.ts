@@ -135,12 +135,10 @@ export class Tab1Page {
     this.planned_dates = planned_dates;
     this.provinces = provinces;
     this.request_dates = request_dates;
-    //console.log(this.clients, this.commons, this.planned_dates, this.provinces, this.request_dates)
   }
 
   getCount() {
     let counts = this.dataService.getCounts();
-    console.log('io sono counts', counts)
     let countPianificati = 0
     let countChiusi = 0;
     let countAssegnati = 0;
@@ -179,7 +177,6 @@ export class Tab1Page {
         role: 'cancel',
         cssClass: 'secondary',
         handler: (blah) => {
-          //console.log('Annullato');
         }
       }, {
         text: 'Procedi',
@@ -199,12 +196,23 @@ export class Tab1Page {
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
     }).then(
       date => {
-        incident.planned_date = moment(date).format("DD/MM/YYYY").toString();
-        incident.is_planned = true;
-        // this.saveIncident(incident);
+        let passDate = this.convertStr(date);
+        this.dataService.setPlanDate(incident.id_incident, new Date(passDate)).subscribe((response) => {
+          this.dataService.getDataAll().subscribe((data) => {
+            this.dati = data;
+            this.getCount();
+          });
+        });
       },
       err => console.log('Si è verificato il seguente errore: ', err)
     );
+  }
+
+  convertStr(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
   }
 
   // saveIncident(incident: IncidentData) {
@@ -266,7 +274,6 @@ export class Tab1Page {
     const dati: IncidentData[] = [];
     this._dati.forEach((incident) => {
       if (incident[field] == value) {
-        //console.log(incident);
         dati.push(incident);
       }
     })
@@ -285,13 +292,13 @@ export class Tab1Page {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation', event);
+    //console.log('Begin async operation', event);
     this.dataService.getDataAll().subscribe((data) => {
       this.dati = data;
       this.getCount();
     });
     setTimeout(() => {
-      console.log('Async operation has ended');
+      //console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }

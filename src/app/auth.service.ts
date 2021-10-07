@@ -13,7 +13,6 @@ export class AuthService {
 
   login(value): Observable<any> {
     const loginURL = "http://francescogreco.ddns.net:3001/users/login";
-    console.log(value)
     return this.http.post(loginURL, { username: value.username, password: value.password });
   }
 }

@@ -61,7 +61,6 @@ export class IncidentData {
     this.destination = dati.apEventi.comuneDestinazione;
     this.device = dati.apEventi.device;
     this.event_type = dati.COD_TIPO_EVENTO;
-    console.log('io sono workorder', dati.apEventi.workorder)
   }
 
   setPlanned() {
