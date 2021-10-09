@@ -32,7 +32,7 @@ export class Tab3Page {
   }
 
   ionViewWillEnter() {
-    this.dati = this.dataService.getDataClosed();
+    // this.dati = this.dataService.getDataClosed();
     // let tmp = localStorage.getItem('dati');
     // let dataTemp = [];
     // let appData: IncidentData[] = []

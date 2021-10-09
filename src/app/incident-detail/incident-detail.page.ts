@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { IncidentClosurePage } from '../modals/incident-closure/incident-closure.page';
 import { PopoverController } from '@ionic/angular';
 import { PopovercomponentPage } from '../popovercomponent/popovercomponent.page';
+import { DataIncidentsService } from '../data-incidents.service';
 @Component({
   selector: 'app-incident-detail',
   templateUrl: './incident-detail.page.html',
@@ -24,14 +25,17 @@ export class IncidentDetailPage implements OnInit {
     private loadingW: LoadingService,
     private splashScreen: SplashScreen,
     private modalController: ModalController,
-    public popover: PopoverController
+    public popover: PopoverController,
+    private dataService: DataIncidentsService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe((data) => {
       this.incident = JSON.parse(data.pass);
+    })
+    this.dataService.getNotes(this.incident.id_incident.toString()).subscribe((note) => {
+      this.incident.incident_notes = note;
       this.loadingW.dismiss();
-      //this.splashScreen.hide();
     })
   }
 

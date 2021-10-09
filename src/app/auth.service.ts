@@ -12,8 +12,7 @@ export class AuthService {
   }
 
   login(value): Observable<any> {
-    const loginURL = "http://www.bebgestory.it:3000/api/users/login";
-    console.log(value)
-    return this.http.post(loginURL, { email: value.email, password: value.password });
+    const loginURL = "http://francescogreco.ddns.net:3001/users/login";
+    return this.http.post(loginURL, { username: value.username, password: value.password });
   }
 }

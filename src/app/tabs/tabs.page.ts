@@ -15,7 +15,6 @@ export class TabsPage {
 
   constructor(private event: EventsService) {
     this.event.getObsevable().subscribe((data) => {
-      console.log(data);
       this.assegnati = data.countAssegnati;
       this.pianificati = data.countPianificati;
       this.chiusi = data.countChiusi;
