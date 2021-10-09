@@ -93,13 +93,13 @@
       <ion-textarea readonly rows="6" cols="20" value="{{incident.symptom}}"></ion-textarea>
     </ion-item>
     <ion-item>
-      <h3 style="color: rgb(42, 163, 238);">Nota apertura ticket</h3>
+      <h3 style="color: rgb(42, 163, 238);">Nota</h3>
     </ion-item>
     <ion-item>
       <ion-textarea readonly rows="6" cols="20" value="{{incident.incident_start_note}}"></ion-textarea>
     </ion-item>
     <ion-item>
-      <h3 style="color: rgb(42, 163, 238);">Note ticket</h3>
+      <h3 style="color: rgb(42, 163, 238);">Storico interventi</h3>
     </ion-item>
     <ion-card *ngFor="let nota of incident.incident_notes">
       <ion-card-header>

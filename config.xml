@@ -206,4 +206,7 @@
         <application android:networkSecurityConfig="@xml/network_security_config" />
     </edit-config>
     <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm">
+        <variable name="GOOGLE_API_KEY_FOR_ANDROID" value="{AIzaSyDu1avahS0hPnhF6mwHeFmLtk13vRcX1n0}" />
+    </plugin>
 </widget>

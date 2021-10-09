@@ -12,6 +12,8 @@ import { ModalController } from '@ionic/angular';
 import { FiltersModalPage } from '../modals/filters-modal/filters-modal.page';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -48,7 +50,8 @@ export class Tab1Page {
     private splashScreen: SplashScreen,
     public modalController: ModalController,
     private datePicker: DatePicker,
-    private dataService: DataIncidentsService
+    private dataService: DataIncidentsService,
+    private callNumber: CallNumber, private launchNavigator: LaunchNavigator
   ) {
     this.dataService.getDataAll().subscribe((data) => {
       this.dati = data;
@@ -59,6 +62,19 @@ export class Tab1Page {
 
   OnInit() {
 
+  }
+
+  goAddress(incident: IncidentData) {
+    // let options: LaunchNavigatorOptions = {
+    //   start: '',
+    //   app: LaunchNavigator.APPS.UBER
+    // }
+
+    this.launchNavigator.navigate(incident.address)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
   }
 
   doReorder(ev) {
@@ -244,6 +260,12 @@ export class Tab1Page {
   //     this.getCount();
   //   })
   // }
+
+  callCellular(phoneNumber) {
+    this.callNumber.callNumber(phoneNumber, true)
+      .then(res => console.log('Chimata in corso!', res))
+      .catch(err => console.log('Errore di chiamata', err));
+  }
 
   async showFilter(type) {
     const modal = await this.modalController.create({

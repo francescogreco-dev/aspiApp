@@ -10,6 +10,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { IncidentDetailPageModule } from '../incident-detail/incident-detail.module';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
     IncidentDetailPageModule
   ],
   exports: [],
-  providers: [SplashScreen, DatePicker],
+  providers: [SplashScreen, DatePicker, LaunchNavigator],
   declarations: [Tab1Page]
 })
 export class Tab1PageModule { }
