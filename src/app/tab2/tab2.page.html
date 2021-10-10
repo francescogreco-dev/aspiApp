@@ -39,6 +39,68 @@
     <ng-container *ngFor="let incident of dati">
       <ion-card *ngIf="(incident.planned_date | date: 'dd/MM/yyyy') == now"
         [ngClass]="(incident.is_planned == true ? 'green' : 'orange')">
+        <ion-item (click)="test(incident)" class="ion-no-padding"
+          [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
+          <ion-reorder slot="start"></ion-reorder>
+          <ion-label class="incident-text" style=" text-align: left;"><b>{{incident.incident_number}}</b>
+          </ion-label>
+          <!-- <ion-button color="light" style="font-weight: bold;" slot="end" (click)="plannedIncident(incident)">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button> -->
+        </ion-item>
+        <!-- <ion-card-header class="ion-no-padding" translucent (click)="test(incident)"> -->
+        <ion-card-content class="ion-no-padding" style="padding-left: -40px; padding-bottom: 10px; padding-top: -20px;">
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label>
+                <p class="ion-no-padding ion-text-wrap">
+                  Ticket esterno: <b>{{incident.incident_number_internal}}</b>
+                  <!-- <br> -->
+                  Device: <b>{{incident.device}}</b>
+                  <!-- <br> -->
+                  Cliente: <b>{{incident.client}}</b>
+                  <!-- <br> -->
+                  Contatto: <b>{{incident.contact_name}}</b>
+                  <!-- <br> -->
+                  Indirizzo: <b>{{incident.address}}</b>
+                  <!-- <br> -->
+                  Comune: <b>{{incident.common}}</b>
+                  <!-- <br> -->
+                </p>
+              </ion-label>
+            </ion-item>
+            <ion-item-options>
+              <ion-item-option color="primary" (click)="callCellular(incident.phone_1)">
+                <ion-icon slot="end" name="call-outline" size="large"></ion-icon>
+
+              </ion-item-option>
+              <ion-item-option color="secondary" (click)="plannedIncident(incident)">
+                <ion-icon slot="end" name="calendar-outline" size="large"></ion-icon>
+
+              </ion-item-option>
+              <ion-item-option color="success" (click)="goAddress(incident)">
+                <ion-icon slot="end" name="navigate" size="large"></ion-icon>
+
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+        </ion-card-content>
+        <ion-row style="background-color: rgb(240, 92, 66); margin-top: -12px;">
+          <ion-col align-self-right text-right>
+            <ion-note style="color: black;">
+              <div style="text-align: center;">
+                <!-- <ion-icon name='calendar-outline'></ion-icon> -->
+                Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
+              </div>
+            </ion-note>
+          </ion-col>
+        </ion-row>
+        <!-- </ion-card-header> -->
+      </ion-card>
+
+      <!-- <ion-card *ngIf="(incident.planned_date | date: 'dd/MM/yyyy') == now"
+        [ngClass]="(incident.is_planned == true ? 'green' : 'orange')">
         <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
           <ion-reorder slot="start"></ion-reorder>
           <ion-label class="ion-no-padding" class="incident-text" style=" text-align: left;"><b>Tk:
@@ -65,7 +127,7 @@
             Data pianifica: <b>{{(incident.planned_date | date: 'dd/MM/yyyy')}}</b>
           </ion-card-content>
         </ion-card-header>
-      </ion-card>
+      </ion-card> -->
     </ng-container>
   </ion-reorder-group>
 </ion-content>

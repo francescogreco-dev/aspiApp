@@ -47,7 +47,7 @@
         <ion-item (click)="test(incident)" class="ion-no-padding"
           [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
           <ion-reorder slot="start"></ion-reorder>
-          <ion-label class="incident-text" style=" text-align: center;"><b>{{incident.incident_number}}</b>
+          <ion-label class="incident-text" style="text-align: left;"><b>{{incident.incident_number}}</b>
           </ion-label>
           <!-- <ion-button color="light" style="font-weight: bold;" slot="end" (click)="plannedIncident(incident)">
             <ion-icon name="calendar-outline"></ion-icon>
@@ -71,7 +71,6 @@
                   <!-- <br> -->
                   Comune: <b>{{incident.common}}</b>
                   <!-- <br> -->
-                  Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
                 </p>
               </ion-label>
             </ion-item>
@@ -92,6 +91,16 @@
           </ion-item-sliding>
 
         </ion-card-content>
+        <ion-row style="background-color: rgb(240, 92, 66); margin-top: -12px;">
+          <ion-col align-self-right text-right>
+            <ion-note style="color: black;">
+              <div style="text-align: center;">
+                <!-- <ion-icon name='calendar-outline'></ion-icon> -->
+                Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
+              </div>
+            </ion-note>
+          </ion-col>
+        </ion-row>
         <!-- </ion-card-header> -->
       </ion-card>
     </ng-container>

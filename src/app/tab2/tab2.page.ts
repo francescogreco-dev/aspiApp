@@ -10,6 +10,8 @@ import * as moment from 'moment';
 import { DataIncidentsService } from '../data-incidents.service';
 import { LoadingService } from '../loading-service.service';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -26,12 +28,32 @@ export class Tab2Page {
   public now: string;
   constructor(private route: Router, private splashScreen: SplashScreen, private events: EventsService,
     private dataService: DataIncidentsService,
-    private loadingW: LoadingService, private datePicker: DatePicker, private alertController: AlertController,) {
+    private loadingW: LoadingService, private datePicker: DatePicker, private alertController: AlertController,
+    private callNumber: CallNumber, private launchNavigator: LaunchNavigator) {
 
+  }
+
+  goAddress(incident: IncidentData) {
+    // let options: LaunchNavigatorOptions = {
+    //   start: '',
+    //   app: LaunchNavigator.APPS.UBER
+    // }
+
+    this.launchNavigator.navigate(incident.address)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
   }
 
   ionViewWillEnter() {
     this.buildData()
+  }
+
+  callCellular(phoneNumber) {
+    this.callNumber.callNumber(phoneNumber, true)
+      .then(res => console.log('Chimata in corso!', res))
+      .catch(err => console.log('Errore di chiamata', err));
   }
 
   buildData() {
