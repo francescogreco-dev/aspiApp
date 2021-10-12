@@ -64,12 +64,12 @@ export class Tab1Page {
 
   }
 
-  goAddress(incident: IncidentData) {
+  goAddress(incident: IncidentData, slidingItem) {
     // let options: LaunchNavigatorOptions = {
     //   start: '',
     //   app: LaunchNavigator.APPS.UBER
     // }
-
+    slidingItem.close();
     this.launchNavigator.navigate(incident.address)
       .then(
         success => console.log('Launched navigator'),
@@ -177,7 +177,8 @@ export class Tab1Page {
     this.events.publishData({ countAssegnati: counts.countAssegnati, countPianificati: counts.countPianificati, countChiusi: counts.countChiusi });
   }
 
-  test(incident: IncidentData) {
+  test(incident: IncidentData, slidingItem) {
+    slidingItem.close();
     let pass = JSON.stringify(incident)
     this.route.navigate(['incident-detail', { pass }]);
     //this.splashScreen.show();
@@ -261,7 +262,8 @@ export class Tab1Page {
   //   })
   // }
 
-  callCellular(phoneNumber) {
+  callCellular(phoneNumber, slidingItem) {
+    slidingItem.close();
     this.callNumber.callNumber(phoneNumber, true)
       .then(res => console.log('Chimata in corso!', res))
       .catch(err => console.log('Errore di chiamata', err));

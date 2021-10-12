@@ -1,4 +1,5 @@
 import { IncidentNote } from "./incident-note";
+import { ApEventi } from './../../../../../loopback/aspi-real-api/aspi-api/src/models/ap-eventi.model';
 
 export class IncidentData {
 
@@ -35,6 +36,8 @@ export class IncidentData {
   public status: string = '';
   public signatory: string = '';
   public incident_closure_note: string = '';
+  public dataMax: string = '';
+  public oraMax: string = '';
 
   constructor(dati: any) {
     this.id_incident = dati.eventoId;
@@ -61,6 +64,8 @@ export class IncidentData {
     this.destination = dati.apEventi.comuneDestinazione;
     this.device = dati.apEventi.device;
     this.event_type = dati.COD_TIPO_EVENTO;
+    this.dataMax = dati.apEventi.dataMax != undefined ? dati.apEventi.dataMax : null;
+    this.oraMax = dati.apEventi.oraMax != undefined ? dati.apEventi.oraMax : null;
   }
 
   setPlanned() {

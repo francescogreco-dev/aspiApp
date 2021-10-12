@@ -46,64 +46,68 @@
         [ngClass]="incident.planned_date == '' || incident.planned_date == null ? 'red' : ((incident.planned_date | date: 'dd/MM/yyyy') != now ? 'orange' : 'green')">
         <ion-card-header class="ion-no-padding">
           <ion-card-subtitle style="height: 40px; margin-top: -10px !important;" class="ion-no-padding">
-            <ion-item (click)="test(incident)" class="ion-no-padding"
-              [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
+            <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
               <ion-reorder slot="start"></ion-reorder>
-              <ion-label class="incident-text" style="text-align: left;"><b>{{incident.incident_number}}</b>
+              <ion-label class="incident-text" style="text-align: center; margin-left: -30px;">
+                <b>{{incident.incident_number}}</b>
               </ion-label>
               <!-- <ion-button color="light" style="font-weight: bold; opacity: 0.5;" slot="end" (click)="test(incident)"> -->
-              <ion-icon name="eye"></ion-icon>
+              <!-- <ion-icon name="eye"></ion-icon> -->
               <!-- </ion-button> -->
             </ion-item>
           </ion-card-subtitle>
         </ion-card-header>
         <!-- <ion-card-header class="ion-no-padding" translucent (click)="test(incident)"> -->
         <ion-card-content class="ion-no-padding" style="padding-left: -40px; padding-bottom: 10px; padding-top: -20px;">
-          <ion-item-sliding>
+          <ion-item-sliding #slidingItem>
+
             <ion-item>
               <ion-label>
                 <p class="ion-no-padding ion-text-wrap" style="text-align: left;">
                   Tk esterno: <b>{{incident.incident_number_internal}}</b>-
                   <!-- <br> -->
-                  Device: <b>{{incident.device}}</b>-
+                  Device: <b>{{incident.device || '--ND--'}}</b>-
                   <!-- <br> -->
-                  Cliente: <b>{{incident.client}}</b>-
+                  Cliente: <b>{{incident.client || '--ND--'}}</b>-
                   <!-- <br> -->
-                  Contatto: <b>{{incident.contact_name}}</b>-
+                  Contatto: <b>{{incident.contact_name || '--ND--'}}</b>-
                   <!-- <br> -->
-                  Indirizzo: <b>{{incident.address}}</b>-
+                  Indirizzo: <b>{{incident.address || '--ND--'}}</b>-
                   <!-- <br> -->
-                  Comune: <b>{{incident.common}}</b>-
+                  Comune: <b>{{incident.common || '--ND--'}}</b>-
                   <!-- <br> -->
                   Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
                 </p>
               </ion-label>
             </ion-item>
+            <ion-item-options side="start">
+              <ion-item-option color="danger" (click)="test(incident, slidingItem)">
+                <ion-icon name="log-in" size="large"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
             <ion-item-options>
-              <ion-item-option color="primary" (click)="callCellular(incident.phone_1)">
-                <ion-icon slot="end" name="call-outline" size="large"></ion-icon>
-
+              <ion-item-option color="primary" (click)="callCellular(incident.phone_1, slidingItem)">
+                <ion-icon name="call-outline" size="large"></ion-icon>
               </ion-item-option>
               <ion-item-option color="secondary" (click)="plannedIncident(incident)">
-                <ion-icon slot="end" name="calendar-outline" size="large"></ion-icon>
-
+                <ion-icon name="calendar-outline" size="large"></ion-icon>
               </ion-item-option>
-              <ion-item-option color="success" (click)="goAddress(incident)">
-                <ion-icon slot="end" name="navigate" size="large"></ion-icon>
-
+              <ion-item-option color="success" (click)="goAddress(incident, slidingItem)">
+                <ion-icon name="navigate" size="large"></ion-icon>
               </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
-
         </ion-card-content>
-        <ion-row style="margin-top: -12px;">
-          <!-- <ion-col align-self-right text-right>
+        <ion-row style="background-color: #d15b5b;  margin-top: -12px;">
+          <ion-col *ngIf="(incident.dataMax != undefined)" align-self-right text-right>
             <ion-note style="color: black;">
-              <div style="text-align: center;">
-                Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
+              <div style="text-align: center; color: white !important;">
+                <!-- <ion-icon name='calendar-outline'></ion-icon> -->
+                Scadenza Tk: <b>{{incident.dataMax | date: 'dd/MM/yyyy'}} ore {{incident.oraMax | date: 'HH:mm'
+                  :'UTC'}}</b>
               </div>
             </ion-note>
-          </ion-col> -->
+          </ion-col>
         </ion-row>
         <!-- </ion-card-header> -->
       </ion-card>
