@@ -232,6 +232,12 @@ export class Tab1Page {
     return [date.getFullYear(), mnth, day].join("-");
   }
 
+  convertStrTime(str) {
+    var date = moment(str).utc().format('HH:mm');
+    console.log('io sono date ' + date);
+    return date;
+  }
+
   // saveIncident(incident: IncidentData) {
   //   this.dataService.save(incident);
   //   this.dati = this.dataService.getDataAll();
@@ -325,6 +331,26 @@ export class Tab1Page {
       //console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  calcolaTime(incident: IncidentData) {
+    let dataM = this.convertStr(incident.dataMax);
+    let oraM = this.convertStrTime(incident.oraMax)
+    const d = dataM + ' ' + oraM;
+    console.log('io sono il calcolo della data ', new Date(d))
+    const a = new Date(d).getTime()
+    const b = new Date().getTime();
+    const diffNumber = a - b;
+    console.log('iono sono a ' + a, 'io sono b ' + b)
+    if ((a - b) > 0) {
+      const minutes = (diffNumber / (60000));
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const hoursret = (hours - (days * 24));
+      return "Rimanenti: " + days.toFixed(0) + ' giorni ' + hoursret + ' ore ' + (minutes % 60).toFixed(0) + ' minuti';
+    } else {
+      return 'Scaduta';
+    }
   }
 
 }

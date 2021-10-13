@@ -5,7 +5,10 @@ import { IonInput } from '@ionic/angular'; @Component({
   styleUrls: ['./show-hide-password.component.scss']
 })
 export class ShowHidePasswordComponent {
-  showPassword = false; @ContentChild(IonInput) input: IonInput; constructor() { } toggleShow() {
+  showPassword = false;
+  @ContentChild(IonInput) input: IonInput;
+  constructor() { }
+  toggleShow() {
     this.showPassword = !this.showPassword;
     this.input.type = this.showPassword ? 'text' : 'password';
   }

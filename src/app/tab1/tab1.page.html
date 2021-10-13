@@ -106,6 +106,9 @@
                 Scadenza Tk: <b>{{incident.dataMax | date: 'dd/MM/yyyy'}} ore {{incident.oraMax | date: 'HH:mm'
                   :'UTC'}}</b>
               </div>
+              <div style="text-align: center; color: white; font-weight: bold;">
+                <u>{{calcolaTime(incident)}}</u>
+              </div>
             </ion-note>
           </ion-col>
         </ion-row>
