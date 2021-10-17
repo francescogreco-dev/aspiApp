@@ -12,15 +12,26 @@ ion-header {
 }
 
 hr {
-  height: 5px !important;
-  background: rgb(44, 72, 167) !important;
-  display: block !important;
+  //height: 5px !important;
+  background: black !important;
+  // display: block !important;
   font-size: 2em !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+  // opacity: 1 !important;
+  // visibility: visible !important;
   margin-top: -0px;
 }
 
 .new-background-color {
   --background: rgb(44, 72, 167);
+}
+
+ion-textarea {
+  margin-top: -10px !important;
+}
+
+ion-button[shape="circle"] {
+  --border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  color: white;
 }

@@ -1,6 +1,4 @@
 import { IncidentNote } from "./incident-note";
-import { ApEventi } from './../../../../../loopback/aspi-real-api/aspi-api/src/models/ap-eventi.model';
-
 export class IncidentData {
 
   public id_incident: number;
@@ -56,10 +54,10 @@ export class IncidentData {
     this.requested_time = dati.apEventi.oraRichiestaCli;
     this.status = dati.esitoEvento;
     this.symptom = dati.descrizioneEvento;
-    this.address = dati.apEventi.aPEventiCfDestinazione != undefined ? (dati.apEventi.aPEventiCfDestinazione.desDestMerce + ' ' + (dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest != undefined ? dati.apEventi.aPEventiCfDestinazione.desDestMerce.numDest : '')) : "";
+    this.address = dati.apEventi.aPEventiCfDestinazione != undefined ? dati.apEventi.aPEventiCfDestinazione.indiDestMerce : '';
     //this.appointment = dati.appointment;
     this.client = dati.eventoCodCf.ragSocCf;
-    this.common = dati.eventoCodCf.comuneCf;
+    this.common = dati.apEventi.comuneDestinazione;
     this.contact_name = dati.contatto;
     this.destination = dati.apEventi.comuneDestinazione;
     this.device = dati.apEventi.device;

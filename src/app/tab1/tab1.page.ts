@@ -234,7 +234,6 @@ export class Tab1Page {
 
   convertStrTime(str) {
     var date = moment(str).utc().format('HH:mm');
-    console.log('io sono date ' + date);
     return date;
   }
 
@@ -334,14 +333,12 @@ export class Tab1Page {
   }
 
   calcolaTime(incident: IncidentData) {
-    let dataM = this.convertStr(incident.dataMax);
-    let oraM = this.convertStrTime(incident.oraMax)
-    const d = dataM + ' ' + oraM;
-    console.log('io sono il calcolo della data ', new Date(d))
-    const a = new Date(d).getTime()
+    const tempDateString = incident.dataMax.substr(0, 10);
+    const tempOraString = incident.oraMax.substr(10);
+    const dataTotale = tempDateString + tempOraString;
+    const a = new Date(dataTotale).getTime()
     const b = new Date().getTime();
     const diffNumber = a - b;
-    console.log('iono sono a ' + a, 'io sono b ' + b)
     if ((a - b) > 0) {
       const minutes = (diffNumber / (60000));
       const hours = Math.floor(minutes / 60);

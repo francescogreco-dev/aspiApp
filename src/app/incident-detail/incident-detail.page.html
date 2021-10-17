@@ -12,12 +12,206 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <!-- <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button *ngIf="incident.is_close != true" color="success" (click)="closeIncident()">
       <ion-icon name="pencil"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
-  <ion-list>
+  </ion-fab> -->
+  <ion-grid>
+    <div>
+      Dati intervento
+    </div>
+    <hr>
+    <ion-row style="margin-top: -10px;">
+      <ion-col size="4" color="primary">
+        <ion-text color="primary">
+          Tk esterno
+        </ion-text>
+      </ion-col>
+      <ion-col>{{incident.incident_number_internal}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Cliente
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.client || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Indirizzo
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.address || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Comune
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.common || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Device
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.device || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Evento
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.event_type || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Data Tk
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.request_date | date: 'dd/MM/yyyy'}} ore {{ incident.requested_time | date: 'HH:mm'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Pianifica
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{(incident.planned_date | date: 'dd/MM/yyyy') || '--'}}
+      </ion-col>
+    </ion-row>
+    <div style="margin-top: 5px;">
+      Dati contatto
+    </div>
+    <hr>
+    <ion-row style="margin-top: -10px;">
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Contatto
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.contact_name || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Telefono
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <span (click)="callCellular(incident.phone_1)">{{incident.phone_1 || '--'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Cellulare
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <span (click)="callCellular(incident.phone_2)">{{incident.phone_2 || '--'}}</span>
+      </ion-col>
+    </ion-row>
+    <br>
+    <div style="margin-top: -10px;">
+      Sintomo
+    </div>
+    <hr>
+    <ion-textarea readonly rows="3" value="{{incident.symptom}}">
+    </ion-textarea>
+    <br>
+    <div style="margin-top: -10px;">
+      Nota
+    </div>
+    <hr>
+    <ion-textarea readonly rows="3" value="{{incident.incident_start_note || '--'}}"></ion-textarea>
+    <br>
+    <!-- <ion-row>
+      <ion-col size="4" style="color: lightgray;">Sintomo</ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-textarea readonly rows="3" value="{{incident.symptom}}">
+        </ion-textarea>
+      </ion-col>
+    </ion-row> -->
+    <!-- <ion-row>
+        <ion-col size="4" style="color: lightgray;">Nota</ion-col>
+        <ion-col class="ion-no-padding">
+          <ion-textarea readonly rows="2" value="{{incident.incident_start_note || '--'}}">
+          </ion-textarea>
+        </ion-col>
+      </ion-row> -->
+    <hr>
+    <ion-row style="margin-top: -15px;">
+      <ion-col class="ion-text-center" size="6">
+        <ion-button expand="block" size="small" color="warning" style="color: white !important;">
+          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
+          remark
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="6">
+        <ion-button expand="block" size="small" color="medium" (click)="closeIncident()">
+          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
+          chiudi
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <div>
+      Storico Interventi
+    </div>
+    <hr>
+    <ion-card *ngFor="let nota of incident.incident_notes">
+      <ion-card-header>
+        <ion-card-title
+          style="background-color: lightgray; font-size: 1.2rem; padding-top: 5px; padding-bottom: 5px; text-align: center;">
+          Data:
+          {{(nota.date_insert | date: 'dd/MM/yyyy') + ' ' +
+          ( nota.time_insert | date: 'HH:mm')}}
+        </ion-card-title>
+        <ion-card-subtitle>Evento: {{nota.event_type}}</ion-card-subtitle>
+        <ion-card-subtitle>Stato: {{nota.status}}</ion-card-subtitle>
+        <ion-card-subtitle>Utente: {{nota.technical_name}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{nota.text}}
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
+  <!-- <ion-grid fixed>
+    <ion-row>
+      <ion-col>
+        Nota
+        <ion-row>
+          <ion-col style="text-align: left;">
+            <ion-textarea readonly rows="6" value="{{incident.incident_start_note}}"></ion-textarea>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <!-- <ion-list>
     <ion-item>
       <ion-label style="color: rgb(42, 163, 238);" position="floating">Ticket esterno</ion-label>
       <ion-input readonly value="{{incident.incident_number_internal}}"></ion-input>
@@ -117,5 +311,5 @@
         {{nota.text}}
       </ion-card-content>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

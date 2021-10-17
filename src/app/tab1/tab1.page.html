@@ -61,20 +61,20 @@
         <ion-card-content class="ion-no-padding" style="padding-left: -40px; padding-bottom: 10px; padding-top: -20px;">
           <ion-item-sliding #slidingItem>
 
-            <ion-item>
+            <ion-item (click)="test(incident, slidingItem)">
               <ion-label>
                 <p class="ion-no-padding ion-text-wrap" style="text-align: left;">
-                  Tk esterno: <b>{{incident.incident_number_internal}}</b>-
+                  Tk esterno: <b>{{incident.incident_number_internal || '--ND--'}}</b> -
                   <!-- <br> -->
-                  Device: <b>{{incident.device || '--ND--'}}</b>-
+                  Device: <b>{{incident.device || '--ND--'}}</b> -
                   <!-- <br> -->
-                  Cliente: <b>{{incident.client || '--ND--'}}</b>-
+                  Cliente: <b>{{incident.client || '--ND--'}}</b> -
                   <!-- <br> -->
-                  Contatto: <b>{{incident.contact_name || '--ND--'}}</b>-
+                  Contatto: <b>{{incident.contact_name || '--ND--'}}</b> -
                   <!-- <br> -->
-                  Indirizzo: <b>{{incident.address || '--ND--'}}</b>-
+                  Indirizzo: <b>{{incident.address || '--ND--'}}</b> -
                   <!-- <br> -->
-                  Comune: <b>{{incident.common || '--ND--'}}</b>-
+                  Comune: <b>{{incident.common || '--ND--'}}</b> -
                   <!-- <br> -->
                   Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
                 </p>
