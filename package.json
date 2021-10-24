@@ -27,6 +27,7 @@
     "@ionic/angular": "^5.8.1",
     "@ngx-translate/core": "^13.0.0",
     "@stencil/core": "^2.8.1",
+    "cordova-ios": "6.2.0",
     "ionicons": "^5.5.3",
     "moment": "^2.29.1",
     "rxjs": "^6.6.7",
@@ -90,6 +91,8 @@
         "OKHTTP_VERSION": "3.12.0"
       }
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

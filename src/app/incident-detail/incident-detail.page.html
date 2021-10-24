@@ -73,7 +73,17 @@
     <ion-row>
       <ion-col size="4" style="color: lightgray;">
         <ion-text color="primary">
-          Evento
+          Matricola
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        {{incident.matricola || '--'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" style="color: lightgray;">
+        <ion-text color="primary">
+          Caus code
         </ion-text>
       </ion-col>
       <ion-col>
@@ -83,7 +93,7 @@
     <ion-row>
       <ion-col size="4" style="color: lightgray;">
         <ion-text color="primary">
-          Data Tk
+          Presa in carico
         </ion-text>
       </ion-col>
       <ion-col>
@@ -135,6 +145,7 @@
       </ion-col>
     </ion-row>
     <br>
+
     <div style="margin-top: -10px;">
       Sintomo
     </div>
@@ -143,11 +154,27 @@
     </ion-textarea>
     <br>
     <div style="margin-top: -10px;">
-      Nota
+      Note RDI
     </div>
     <hr>
     <ion-textarea readonly rows="3" value="{{incident.incident_start_note || '--'}}"></ion-textarea>
     <br>
+    <hr>
+    <ion-row style="margin-top: -15px;">
+      <ion-col class="ion-text-center" size="6">
+        <ion-button expand="block" size="small" color="warning" style="color: white !important;">
+          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
+          AGGIORNA
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="6">
+        <ion-button expand="block" size="small" color="medium" (click)="closeIncident()">
+          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
+          CHIUDI
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <hr>
     <!-- <ion-row>
       <ion-col size="4" style="color: lightgray;">Sintomo</ion-col>
       <ion-col class="ion-no-padding">
@@ -162,22 +189,6 @@
           </ion-textarea>
         </ion-col>
       </ion-row> -->
-    <hr>
-    <ion-row style="margin-top: -15px;">
-      <ion-col class="ion-text-center" size="6">
-        <ion-button expand="block" size="small" color="warning" style="color: white !important;">
-          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
-          remark
-        </ion-button>
-      </ion-col>
-      <ion-col class="ion-text-center" size="6">
-        <ion-button expand="block" size="small" color="medium" (click)="closeIncident()">
-          <!-- <ion-icon slot="icon-only" name="home"></ion-icon> -->
-          chiudi
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <hr>
     <div>
       Storico Interventi
     </div>

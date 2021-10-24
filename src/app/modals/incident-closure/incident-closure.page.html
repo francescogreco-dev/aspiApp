@@ -57,7 +57,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-select cancelText="Annulla" okText="Conferma" interface="action-sheet" [(ngModel)]="incident.type"
-          (ionChange)="Getselected(type)" placeholder="tipo intervento" [ngModelOptions]="{standalone: true}">
+          (ionChange)="Getselected(type)" placeholder="caus code" [ngModelOptions]="{standalone: true}">
           <ion-select-option *ngFor="let item of types" value="{{item}}">{{item}}</ion-select-option>
         </ion-select>
       </ion-col>

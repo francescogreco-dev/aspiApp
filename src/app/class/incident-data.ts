@@ -36,6 +36,7 @@ export class IncidentData {
   public incident_closure_note: string = '';
   public dataMax: string = '';
   public oraMax: string = '';
+  public matricola: string = '';
 
   constructor(dati: any) {
     this.id_incident = dati.eventoId;
@@ -64,6 +65,7 @@ export class IncidentData {
     this.event_type = dati.COD_TIPO_EVENTO;
     this.dataMax = dati.apEventi.dataMax != undefined ? dati.apEventi.dataMax : null;
     this.oraMax = dati.apEventi.oraMax != undefined ? dati.apEventi.oraMax : null;
+    this.matricola = dati.apEventi.matricolaDevice != undefined ? dati.apEventi.matricolaDevice : null;
   }
 
   setPlanned() {

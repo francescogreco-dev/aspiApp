@@ -45,10 +45,10 @@
       <ion-card *ngIf="incident.getClosed() == false"
         [ngClass]="incident.planned_date == '' || incident.planned_date == null ? 'red' : ((incident.planned_date | date: 'dd/MM/yyyy') != now ? 'orange' : 'green')">
         <ion-card-header class="ion-no-padding">
-          <ion-card-subtitle style="height: 40px; margin-top: -10px !important;" class="ion-no-padding">
+          <ion-card-subtitle style="height: 40px; margin-top: -8px !important;" class="ion-no-padding">
             <ion-item class="ion-no-padding" [color]=" incident.id_incident % 2 !=0 ? 'primary' : 'primary'">
-              <ion-reorder slot="start"></ion-reorder>
-              <ion-label class="incident-text" style="text-align: center; margin-left: -30px;">
+              <ion-reorder slot="end"></ion-reorder>
+              <ion-label class="incident-text" style="text-align: left; z-index: 150; padding-left: 10px;">
                 <b>{{incident.incident_number}}</b>
               </ion-label>
               <!-- <ion-button color="light" style="font-weight: bold; opacity: 0.5;" slot="end" (click)="test(incident)"> -->
@@ -64,25 +64,22 @@
             <ion-item (click)="test(incident, slidingItem)">
               <ion-label>
                 <p class="ion-no-padding ion-text-wrap" style="text-align: left;">
-                  Tk esterno: <b>{{incident.incident_number_internal || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Device: <b>{{incident.device || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Cliente: <b>{{incident.client || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Contatto: <b>{{incident.contact_name || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Indirizzo: <b>{{incident.address || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Comune: <b>{{incident.common || '--ND--'}}</b> -
-                  <!-- <br> -->
-                  Data pianifica: <b>{{incident.planned_date | date: 'dd/MM/yyyy'}}</b>
+                  <ion-text style="color:#c0c0c0;">Tk ext:</ion-text><b>{{incident.incident_number_internal ||
+                    'ND'}}</b>
+                  <ion-text style="color:#0021bf;"> | </ion-text><b>{{incident.device || 'ND'}}</b>
+                  <ion-text style="color:#0021bf;"> | </ion-text><b>{{incident.client || 'ND'}}</b>
+                  <ion-text style="color:#c0c0c0;"> Contatto:</ion-text> <b>{{incident.contact_name || 'ND'}}</b>
+                  <ion-text style="color:#0021bf;"> | </ion-text> <b>{{incident.address || 'ND'}}</b>
+                  <ion-text style="color:#0021bf;"> | </ion-text> <b>{{incident.common || 'ND'}}</b>
+                  <ion-text style="color:#c0c0c0;"> Pianifica:</ion-text> <b>{{(incident.planned_date | date:
+                    'dd/MM/yyyy') || 'ND'}}</b>
                 </p>
               </ion-label>
             </ion-item>
             <ion-item-options side="start">
-              <ion-item-option color="danger" (click)="test(incident, slidingItem)">
-                <ion-icon name="log-in" size="large"></ion-icon>
+              <ion-item-option color="danger" (click)="closeIncident(incident, slidingItem)">
+                <ion-icon name="log-in" size="large">
+                </ion-icon>
               </ion-item-option>
             </ion-item-options>
             <ion-item-options>
@@ -98,16 +95,16 @@
             </ion-item-options>
           </ion-item-sliding>
         </ion-card-content>
-        <ion-row style="background-color: #d15b5b;  margin-top: -12px;">
+        <ion-row style="background-color: #C21212;  margin-top: -12px;">
           <ion-col *ngIf="(incident.dataMax != undefined)" align-self-right text-right>
             <ion-note style="color: black;">
               <div style="text-align: center; color: white !important;">
                 <!-- <ion-icon name='calendar-outline'></ion-icon> -->
-                Scadenza Tk: <b>{{incident.dataMax | date: 'dd/MM/yyyy'}} ore {{incident.oraMax | date: 'HH:mm'
+                SLA: <b>{{incident.dataMax | date: 'dd/MM/yyyy'}} ore {{incident.oraMax | date: 'HH:mm'
                   :'UTC'}}</b>
               </div>
               <div style="text-align: center; color: white; font-weight: bold;">
-                <u>{{calcolaTime(incident)}}</u>
+                {{calcolaTime(incident)}}
               </div>
             </ion-note>
           </ion-col>

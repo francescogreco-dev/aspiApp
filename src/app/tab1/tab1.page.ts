@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { IncidentData } from './../class/incident-data';
 import { Component, ViewChild } from '@angular/core';
 import { LoadingService } from '../loading-service.service';
-import { AlertController, IonReorderGroup } from '@ionic/angular';
+import { AlertController, IonReorderGroup, PopoverController } from '@ionic/angular';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ModalController } from '@ionic/angular';
@@ -14,6 +14,8 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
+import { IncidentClosurePage } from '../modals/incident-closure/incident-closure.page';
+import { PopovercomponentPage } from '../popovercomponent/popovercomponent.page';
 
 @Component({
   selector: 'app-tab1',
@@ -51,7 +53,8 @@ export class Tab1Page {
     public modalController: ModalController,
     private datePicker: DatePicker,
     private dataService: DataIncidentsService,
-    private callNumber: CallNumber, private launchNavigator: LaunchNavigator
+    private callNumber: CallNumber, private launchNavigator: LaunchNavigator,
+    public popover: PopoverController
   ) {
     this.dataService.getDataAll().subscribe((data) => {
       this.dati = data;
@@ -346,8 +349,64 @@ export class Tab1Page {
       const hoursret = (hours - (days * 24));
       return "Rimanenti: " + days.toFixed(0) + ' giorni ' + hoursret + ' ore ' + (minutes % 60).toFixed(0) + ' minuti';
     } else {
-      return 'Scaduta';
+      return 'OUT SLA';
     }
+  }
+
+  async closeIncident(incident: IncidentData, slidingItem?) {
+    if (slidingItem != undefined && slidingItem != null) {
+      slidingItem.close();
+    }
+    const modal = await this.modalController.create({
+      component: IncidentClosurePage,
+      componentProps: {
+        'incident': incident
+      }
+    });
+
+    modal.onDidDismiss()
+      .then((response) => {
+        this.CreatePopover(response, incident)
+      });
+    return await modal.present();
+  }
+
+  CreatePopover(response, incident) {
+    this.popover.create({
+      component: PopovercomponentPage,
+      showBackdrop: false,
+      mode: 'ios',
+      translucent: true,
+      componentProps: {
+        'close_date': response.data.close_date,
+        'time_arrived': response.data.time_arrived,
+        'time_finish': response.data.time_finish,
+        'time_travel': response.data.time_travel,
+        'type': response.data.type,
+        'status': response.data.status,
+        'signatory': response.data.signatory,
+        'incident_closure_note': response.data.incident_closure_note
+      }
+    }).then((popoverElement) => {
+      popoverElement.style.cssText = '--min-width: 300px; --max-width: 420px; top: -10%;'
+      popoverElement.present();
+      popoverElement.onDidDismiss().then(data => {
+        if (data.data != undefined) {
+          incident.close_date = data.data.close_date;
+          incident.time_arrived = data.data.time_arrived;
+          incident.time_finish = data.data.time_finish;
+          incident.time_travel = data.data.time_travel;
+          incident.type = data.data.type;
+          incident.status = data.data.status;
+          incident.signatory = data.data.signatory;
+          incident.incident_closure_note = data.data.incident_closure_note;
+          this.closeIncident(incident);
+        } else {
+          alert('hai confermato... la chiusura è in fase di implementazione!');
+        }
+      })
+    })
+
   }
 
 }

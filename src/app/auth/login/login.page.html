@@ -1,7 +1,7 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="login(form)">
     <ion-grid fixed="true">
-      <ion-img src="../../../assets/image/new-logo.jpg" style="height: 300px; background-color: white;">
+      <ion-img src="../../../assets/image/new-logo-tec.PNG" style="height: 300px; background-color: white;">
       </ion-img><br>
       <ion-row style="margin-top: 20px;" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -24,10 +24,16 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center">
-        <ion-col class="ion-padding" size="11" style="padding-top: 50px;">
-          <ion-button shape="round" type="submit" [disabled]="form.invalid" expand="block">
+        <ion-col col-3>
+
+        </ion-col>
+        <ion-col col-6 expand="block" class="ion-justify-content-center" style="padding-top: 50px;">
+          <ion-button shape="round" type="submit" [disabled]="form.invalid">
             Login
           </ion-button>
+        </ion-col>
+        <ion-col col-3>
+
         </ion-col>
       </ion-row><br>
     </ion-grid>
