@@ -12,15 +12,20 @@ const routes: Routes = [
   },
   {
     path: 'filters-modal',
-    loadChildren: () => import('./modals/filters-modal/filters-modal.module').then( m => m.FiltersModalPageModule)
+    loadChildren: () => import('./modals/filters-modal/filters-modal.module').then(m => m.FiltersModalPageModule)
   },
   {
     path: 'incident-closure',
-    loadChildren: () => import('./modals/incident-closure/incident-closure.module').then( m => m.IncidentClosurePageModule)
+    loadChildren: () => import('./modals/incident-closure/incident-closure.module').then(m => m.IncidentClosurePageModule)
   },
   {
     path: 'popovercomponent',
-    loadChildren: () => import('./popovercomponent/popovercomponent.module').then( m => m.PopovercomponentPageModule)
+    loadChildren: () => import('./popovercomponent/popovercomponent.module').then(m => m.PopovercomponentPageModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./contact/contact.module').then(m => m.ContactPageModule)
+
   }
 ];
 @NgModule({

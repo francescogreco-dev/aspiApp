@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
+  // currentPageTitle = 'Dashboard';
+
+  appPages = [
+    {
+      title: 'Contatti',
+      url: 'contact',
+      icon: 'call'
+    }
+  ];
+
   constructor() { }
 }

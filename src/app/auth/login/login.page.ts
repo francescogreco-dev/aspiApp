@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { AuthService } from '../../auth.service';
 import { HttpResponse } from '@angular/common/http';
 import { LoadingService } from 'src/app/loading-service.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,18 @@ export class LoginPage implements OnInit {
 
   public userName: string = 'salvo'
   public password: string = 'Valentina83'
-  constructor(private authService: AuthService, private router: Router, private loadingW: LoadingService) { }
+  constructor(private authService: AuthService, private router: Router, private loadingW: LoadingService, public menuCtrl: MenuController) { }
 
   ngOnInit() {
 
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  ionViewDidLeave() {
+    // enable the root left menu when leaving the login page
+    this.menuCtrl.enable(true);
   }
 
   login(form) {
