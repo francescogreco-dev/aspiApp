@@ -11,9 +11,9 @@ export class AppComponent {
 
   appPages = [
     {
-      title: 'Contatti',
+      title: 'Info App',
       url: 'contact',
-      icon: 'call'
+      icon: 'information-circle'
     }
   ];
 

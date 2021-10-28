@@ -4,7 +4,15 @@
     <ion-menu contentId="main-content" type="overlay">
 
       <ion-content>
-
+        <ion-item style="padding-top: 30px;">
+          <ion-avatar slot="start">
+            <img src="../assets/image/new-logo-tec.PNG">
+          </ion-avatar>
+          <ion-label>
+            <h3>ASPI MOBILE APP</h3>
+            <p>Ver 1.0</p>
+          </ion-label>
+        </ion-item>
         <ion-list id="inbox-list">
           <ion-list-header>Menù</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
