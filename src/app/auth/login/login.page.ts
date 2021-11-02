@@ -17,8 +17,9 @@ import { MenuController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  public userName: string = 'salvo'
-  public password: string = 'Valentina83'
+  public userName: string = ''
+  public password: string = ''
+  public checked: boolean;
   constructor(private authService: AuthService, private router: Router, private loadingW: LoadingService, public menuCtrl: MenuController) { }
 
   ngOnInit() {
@@ -27,10 +28,22 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
+    let tem = localStorage.getItem('remember');
+    if (tem) {
+      this.checked = true;
+      this.userName = localStorage.getItem('username');
+      this.password = localStorage.getItem('password');
+    } else {
+      this.checked = false;
+    }
   }
   ionViewDidLeave() {
     // enable the root left menu when leaving the login page
     this.menuCtrl.enable(true);
+  }
+
+  checkboxClick(e) {
+    this.checked = e.target.checked;
   }
 
   login(form) {
@@ -41,6 +54,13 @@ export class LoginPage implements OnInit {
       localStorage.setItem('tecnico_id', res.user.tecnicoId);
       localStorage.setItem('username', res.user.username);
       localStorage.setItem('user', res.user);
+      if (this.checked != false) {
+        localStorage.setItem('remember', 'true');
+        localStorage.setItem('password', form.value.password);
+      } else {
+        localStorage.removeItem('remember');
+        localStorage.removeItem('password');
+      }
       this.loadingW.dismiss();
       this.router.navigateByUrl('/tabs', { replaceUrl: true })
     },

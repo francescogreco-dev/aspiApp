@@ -62,7 +62,7 @@ export class IncidentData {
     this.contact_name = dati.contatto;
     this.destination = dati.apEventi.comuneDestinazione;
     this.device = dati.apEventi.device;
-    this.event_type = dati.COD_TIPO_EVENTO;
+    this.event_type = dati.COD_TIPO_EVENTO + ' - ' + dati.codEventoTipo.desTipoEvento;
     this.dataMax = dati.apEventi.dataMax != undefined ? dati.apEventi.dataMax : null;
     this.oraMax = dati.apEventi.oraMax != undefined ? dati.apEventi.oraMax : null;
     this.matricola = dati.apEventi.matricolaDevice != undefined ? dati.apEventi.matricolaDevice : null;

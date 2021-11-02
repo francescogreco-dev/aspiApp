@@ -86,7 +86,8 @@
               </ion-item-option>
             </ion-item-options>
             <ion-item-options>
-              <ion-item-option color="primary" (click)="callCellular(incident.phone_1, slidingItem)">
+              <ion-item-option color="primary"
+                (click)="callCellular(incident.phone_2 != null && incident.phone_2 != '' ? incident.phone_2 : incident.phone_1, slidingItem)">
                 <ion-icon name="call-outline" size="large"></ion-icon>
               </ion-item-option>
               <ion-item-option color="secondary" (click)="plannedIncident(incident)">
