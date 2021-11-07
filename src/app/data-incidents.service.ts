@@ -16,10 +16,12 @@ export class DataIncidentsService {
   public dataPlannedNoToday: IncidentData[] = [];
   public dataPlannedToday: IncidentData[] = [];
   public dataClosed: IncidentData[] = [];
+  public dataPriority: IncidentData[] = [];
   private now: string;
   public countAssegnati: number;
   public countPianificati: number;
   public countChiusi: number;
+  public countPriority: number;
   private options = {
     year: "numeric",
     month: "2-digit",
@@ -80,6 +82,18 @@ export class DataIncidentsService {
     return this.dataClosed;
   }
 
+  getDataPriority(dataTemp: IncidentData[]) {
+    let appData: IncidentData[] = []
+    dataTemp.forEach((ele) => {
+      if (ele.getClosed() == false && ele.dataMax != null) {
+        appData.push(ele);
+      }
+    })
+    localStorage.setItem('dataPriority', JSON.stringify(appData));
+    this.dataPriority = appData;
+    return this.dataPriority;
+  }
+
   getDataAll(): Observable<IncidentData[]> {
     const username = localStorage.getItem('username');
     const endPoint = this.urlApi + 'evento/getTickets/' + username + '/' + 'open';
@@ -110,10 +124,12 @@ export class DataIncidentsService {
     this.getDataNoPlanned(this.dataAll);
     this.getDataPlannedToday(this.dataAll);
     this.getDataPlannedNoToday(this.dataAll);
+    this.getDataPriority(this.dataAll);
     this.countAssegnati = (this.dataNoPlanned.length + this.dataPlannedNoToday.length + this.dataPlannedToday.length);
     this.countChiusi = this.dataClosed.length;
     this.countPianificati = this.dataPlannedToday.length;
-    return { countAssegnati: this.countAssegnati, countChiusi: this.countChiusi, countPianificati: this.countPianificati }
+    this.countPriority = this.dataPriority.length
+    return { countAssegnati: this.countAssegnati, countChiusi: this.countChiusi, countPianificati: this.countPianificati, countPriority: this.countPriority }
   }
 
   // save(incident: IncidentData) {

@@ -14,6 +14,14 @@ export class AppComponent {
       title: 'Info App',
       url: 'contact',
       icon: 'information-circle'
+    }, {
+      title: 'Richiesta a magazzino',
+      url: 'purchase-order',
+      icon: 'mail'
+    }, {
+      title: 'Statistiche',
+      url: 'statistics',
+      icon: 'stats-chart'
     }
   ];
 

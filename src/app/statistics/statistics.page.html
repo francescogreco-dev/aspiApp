@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Statistiche</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center;">
+    <h3>Chiuse</h3>
+    <circle-progress [percent]="percent" [radius]="60" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+      [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300">
+    </circle-progress>
+  </div>
+  <div style="text-align: center;">
+    <h3>Pianificate</h3>
+    <circle-progress [percent]="percentPianificate" [radius]="60" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+      [outerStrokeColor]="'#2478b7'" [innerStrokeColor]="'#539ed6'" [animation]="true" [animationDuration]="300">
+    </circle-progress>
+  </div>
+  <div style="text-align: center;">
+    <h3>Prioritarie</h3>
+    <circle-progress [percent]="percentPriority" [radius]="60" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+      [outerStrokeColor]="'#ce0000'" [innerStrokeColor]="'#ea3232'" [animation]="true" [animationDuration]="300">
+    </circle-progress>
+  </div>
+</ion-content>

@@ -23,6 +23,7 @@
     "@ionic-native/core": "^5.36.0",
     "@ionic-native/date-picker": "^5.36.0",
     "@ionic-native/launch-navigator": "^5.36.0",
+    "@ionic-native/pdf-generator": "^5.36.0",
     "@ionic-native/splash-screen": "^5.36.0",
     "@ionic/angular": "^5.8.1",
     "@ngx-translate/core": "^13.0.0",
@@ -30,6 +31,7 @@
     "cordova-ios": "6.2.0",
     "ionicons": "^5.5.3",
     "moment": "^2.29.1",
+    "ng-circle-progress": "^1.6.0",
     "rxjs": "^6.6.7",
     "tslib": "^2.3.1",
     "zone.js": "~0.10.2"
@@ -48,6 +50,7 @@
     "call-number": "^1.0.1",
     "codelyzer": "^6.0.2",
     "cordova-android": "^9.1.0",
+    "cordova-pdf-generator": "^2.1.1",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "^2.0.3",
@@ -89,7 +92,8 @@
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "GOOGLE_API_KEY_FOR_ANDROID": "{your_api_key}",
         "OKHTTP_VERSION": "3.12.0"
-      }
+      },
+      "cordova-pdf-generator": {}
     },
     "platforms": [
       "android"

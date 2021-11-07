@@ -68,10 +68,6 @@ export class Tab1Page {
   }
 
   goAddress(incident: IncidentData, slidingItem) {
-    // let options: LaunchNavigatorOptions = {
-    //   start: '',
-    //   app: LaunchNavigator.APPS.UBER
-    // }
     slidingItem.close();
     this.launchNavigator.navigate(incident.address)
       .then(
@@ -97,10 +93,7 @@ export class Tab1Page {
   }
 
   ionViewWillEnter() {
-    //this.buildData()
     this.now = new Date().toLocaleDateString('it-IT', this.options);
-    // this.getCount();
-    // this.buildFilters();
   }
 
   // buildData() {
@@ -158,25 +151,6 @@ export class Tab1Page {
 
   getCount() {
     let counts = this.dataService.getCounts();
-    let countPianificati = 0
-    let countChiusi = 0;
-    let countAssegnati = 0;
-    this.dati.forEach(function (data) {
-      if (data.is_planned == true && data.getClosed() == false) {
-        let current = new Date();
-        let plan = moment(data.planned_date, "DD-MM-YYYY").toDate();
-        if (current.getDate() == plan.getDate()) {
-          countPianificati++;
-        }
-      }
-      if (data.getClosed() == true) {
-        countChiusi += 1;
-      }
-      countAssegnati += 1;
-    });
-    this.countAssegnati = countAssegnati - countChiusi;
-    this.countChiusi = countChiusi;
-    this.countPianificati = countPianificati;
     this.events.publishData({ countAssegnati: counts.countAssegnati, countPianificati: counts.countPianificati, countChiusi: counts.countChiusi });
   }
 
