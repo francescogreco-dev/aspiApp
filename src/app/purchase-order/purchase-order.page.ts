@@ -19,7 +19,7 @@ export class PurchaseOrderPage implements OnInit {
       fileName: 'Richiesta.pdf'
     };
 
-    this.pdf.fromData('<html><h1>Modulo di richiesta magazzino</h1><div>Questo è un test di generazione pdf Salvo quindi non rompere le scatole.<br><br><b>Cordialmente, F.sco Greco</b></div></html>', options)
+    this.pdf.fromData('<html><h1>Modulo di richiesta magazzino</h1><div>Questo è un test di generazione pdf per una richiesta d\'ordine al magazzino.<br><br><b>Cordialmente, F.sco Greco</b></div></html>', options)
       .then((base64) => 'ok')   // it will
       .catch((err) => console.log(err))
   }
